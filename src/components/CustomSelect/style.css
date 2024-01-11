@@ -1,0 +1,19 @@
+.custom-select-container {
+  position: relative;
+}
+
+.custom-select_label {
+  position: absolute;
+  top: -30px;
+  left: 0;
+}
+
+@media screen  and (max-width: 480px) {
+  .custom-select-container {
+    margin-top: 50px;
+  }
+
+  .custom-select_label {
+    top: -25px;
+  }
+}

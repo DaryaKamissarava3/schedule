@@ -1,0 +1,10 @@
+.error-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-text {
+  color: #434C63;
+}

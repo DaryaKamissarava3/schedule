@@ -1,0 +1,204 @@
+.schedule-table-block {
+  background-color: #434C63;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.schedule-table {
+  width: 100%;
+  margin: 40px 0;
+  border-collapse: collapse;
+}
+
+.schedule-table_mobile {
+  display: none;
+}
+
+.table-header {
+  height: 60px;
+  font-size: 18px;
+  background-color: #434C63;
+}
+
+.table-header th:first-child{
+  border-top-left-radius: 12px;
+}
+
+.table-header th:last-child{
+  border-top-right-radius: 12px;
+}
+
+.table-header_item {
+  padding: 0 20px;
+  color: #ffffff;
+  border-right: 1px solid #ffffff;
+}
+
+.table-body_row {
+  position: relative;
+}
+
+.table-body_row_item {
+  height: 60px;
+  text-align: center;
+  background-color: white;
+  border-bottom: 1px solid #E2E8F0;
+  border-right: 1px solid #E2E8F0;
+}
+
+.table-body_row_item.lesson_number {
+  width: 4%;
+}
+
+.lecture_row {
+  border-left: 5px solid #52f652;
+}
+
+.lab_work_row {
+  border-left: 5px solid #fd4b4b;
+}
+
+.practice_row {
+  border-left: 5px solid #ffb024;
+}
+
+.table-body_row_item.no_lessons {
+  border-left: 8px solid #a2a2a2;
+}
+
+.teacher_link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: color linear .2s;
+}
+
+.teacher_link:hover {
+  color: #ffd03f;
+  text-decoration: underline;
+}
+
+.teacher_cell_img {
+  margin-right: 5px;
+  width: 45px;
+  height: 45px;
+}
+
+.teacher_cell_img:hover {
+  cursor: pointer;
+}
+
+@media screen  and (max-width: 480px) {
+  .schedule-table {
+    display: none;
+  }
+
+  .schedule-table_mobile {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    display: block;
+    max-width: 400px;
+    width: 360px;
+  }
+
+  .mobile-table-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mobile-table-header {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #ffffff;
+    background-color: #434C63;
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
+  }
+
+  .mobile-table-block {
+    border: 1px solid #cecfd0;
+  }
+
+  .block_no_lessons {
+    margin: 0 auto;
+    padding: 20px 0;
+  }
+
+  .table-block_inner {
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .block_description_name {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+  }
+
+  .description_lesson_name {
+    font-size: 22px;
+    font-weight: bold;
+  }
+
+  .description_lesson_type {
+    margin: 0 10px;
+  }
+
+  .description_lesson_time {
+    margin: 13px 0;
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .description_lesson_location {
+    margin: 0;
+    font-size: 16px;
+  }
+
+  .block_teacher_information {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .teacher_cell_img.mobile {
+    margin: 0;
+    width: 70px;
+    height: 70px;
+  }
+
+  .teacher_link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: color linear .2s;
+  }
+
+  .block_teacher_name {
+    margin: 7px 0 10px 0;
+    padding: 5px 10px;
+    font-size: 16px;
+    border: 1px solid #cecfd0;
+    border-radius: 20px;
+  }
+
+  .lecture_row {
+    border-left: 8px solid #52f652;
+  }
+
+  .lab_work_row {
+    border-left: 8px solid #fd4b4b;
+  }
+
+  .practice_row {
+    border-left: 8px solid #ffb024;
+  }
+}

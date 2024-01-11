@@ -1,0 +1,59 @@
+.schedule-selectors-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.checkbox-container {
+  margin-left: 40px;
+  position: relative;
+}
+
+.schedule-checkbox {
+  margin-top: 10px;
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  position: relative;
+}
+
+.checkbox-label_1 {
+  position: absolute;
+  top: -25px;
+  left: -40px;
+  z-index: 1;
+}
+
+.checkbox-label_2 {
+  position: absolute;
+  top: -25px;
+  left: 40px;
+  z-index: 1;
+}
+
+@media screen  and (max-width: 480px) {
+  .schedule-selectors-container {
+    flex-direction: column;
+  }
+
+  .checkbox-container {
+    margin-top: 40px;
+    margin-left: 0;
+    position: relative;
+  }
+
+  .checkbox-label_1 {
+    left: 0;
+  }
+
+  .checkbox-label_2 {
+    left: 80px;
+  }
+
+  .schedule-checkbox {
+    margin-top: 3px;
+    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+  }
+}
