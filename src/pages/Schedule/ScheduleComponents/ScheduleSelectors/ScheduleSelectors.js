@@ -61,6 +61,11 @@ export const ScheduleSelectors = () => {
   const handleWeekNumberChange = (selectedOption) => {
     setSelectedWeekNumber(selectedOption.value);
     dispatch(setWeekNumber(selectedOption.value));
+
+    if (selectedOption.value === 'все') {
+      setIsCheckedNumerator(false);
+      setIsCheckedDenominator(false);
+    }
   };
 
   const handleCheckboxNumerator = () => {
@@ -98,6 +103,7 @@ export const ScheduleSelectors = () => {
           type="checkbox"
           checked={isCheckedNumerator}
           onChange={handleCheckboxNumerator}
+          disabled={selectedWeekNumber === 'все'}
         />
         <label className="checkbox-label_2">
           Знаменатель
@@ -107,6 +113,7 @@ export const ScheduleSelectors = () => {
           type="checkbox"
           checked={isCheckedDenominator}
           onChange={handleCheckboxDenominator}
+          disabled={selectedWeekNumber === 'все'}
         />
       </div>
     </div>

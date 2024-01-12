@@ -1,8 +1,6 @@
-export const tableHeaderForStudents = ['Пара', 'Время', '', 'Дисциплина', '', 'Аудитория', 'Преподаватель'];
+export const tableHeaderForStudents = ['Пара', 'Время', 'Тип', 'Дисциплина', '№ п.п','Неделя', 'Аудитория', 'Преподаватель'];
 
 export const tableHeaderForTeacher = ['Пара','День', 'Время', 'Тип', 'Дисциплина', '№ п.п','Ч / З','Неделя', 'Аудитория', 'Группа'];
-
-export const tableHeaderForWeek = ['Пара', 'День', 'Время', '', 'Дисциплина', '', 'Аудитория', 'Группа'];
 
 export const lessonAbbreviations = [
   {typeClassName: 'Лекция', abbreviation: 'ЛК'},

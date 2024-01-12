@@ -99,7 +99,7 @@ export const TeacherSchedule = () => {
           <tbody>
           {filteredSchedule.length === 0 ? (
             <tr>
-              <td colSpan="9" className="table-body_row_item no_lessons">Пары отсутствуют</td>
+              <td colSpan="10" className="table-body_row_item no_lessons">Пары отсутствуют</td>
             </tr>
           ) : (
             filteredSchedule.map((tableItem) => (

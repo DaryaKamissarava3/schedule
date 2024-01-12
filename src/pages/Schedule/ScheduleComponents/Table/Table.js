@@ -75,7 +75,7 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
           <tbody>
           {filteredSchedule.length === 0 ? (
             <tr>
-              <td colSpan="7" className="table-body_row_item no_lessons">Пары отсутствуют</td>
+              <td colSpan="8" className="table-body_row_item no_lessons">Пары отсутствуют</td>
             </tr>
           ) : (
             filteredSchedule.map((tableItem) => (
@@ -89,8 +89,16 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
                 {tableItem.subGroup === 1 || tableItem.subGroup === 2 ? (
                   <td className="table-body_row_item">{tableItem.subGroup}п.</td>
                 ) : (
-                  <td className="table-body_row_item"></td>
+                  <td className="table-body_row_item">-</td>
                 )}
+                <td className="table-body_row_item">
+                  {tableItem.numerator === false
+                    ? 'знаменатель'
+                    : tableItem.numerator === null
+                      ? '-'
+                      : 'числитель'
+                  }
+                </td>
                 <td className="table-body_row_item">{tableItem.frame}-{tableItem.location}</td>
                 {isTeacherSchedule ?
                   <td className="table-body_row_item">
