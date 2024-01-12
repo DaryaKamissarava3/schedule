@@ -88,7 +88,7 @@ export const TeacherSchedule = () => {
                   {tableItem.numerator === false
                     ? 'знаменатель'
                     : tableItem.numerator === null
-                      ? ' '
+                      ? 'всегда'
                       : 'числитель'
                   }
                 </td>

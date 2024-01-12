@@ -1,6 +1,6 @@
 export const tableHeaderForStudents = ['Пара', 'Время', '', 'Дисциплина', '', 'Аудитория', 'Преподаватель'];
 
-export const tableHeaderForTeacher = ['Пара','День', 'Время', '', 'Дисциплина', '','', 'Аудитория', 'Группа'];
+export const tableHeaderForTeacher = ['Пара','День', 'Время', 'Тип', 'Дисциплина', '№ п.п','Ч / З', 'Аудитория', 'Группа'];
 
 export const tableHeaderForWeek = ['Пара', 'День', 'Время', '', 'Дисциплина', '', 'Аудитория', 'Группа'];
 
