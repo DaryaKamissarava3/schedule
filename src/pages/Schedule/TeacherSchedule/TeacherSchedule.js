@@ -1,19 +1,19 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from 'react-router-dom';
 
-
-import './style.css';
-import {useDispatch, useSelector} from "react-redux";
-
-import {russianToEnglishWeekdays, tableHeaderForTeacher} from "../../../assets/utils/arrays";
 import {
   generateClassName,
   matchLessonTime,
   matchLessonTypeAbbreviation, shortenDisciplineName,
   shortenName
-} from "../../../assets/utils/functions";
-import {Link} from "react-router-dom";
-import teacherImg from "../../../assets/images/avatar.svg";
-import {fetchStudentsSchedule} from "../../../store/scheduleSlice";
+} from '../../../assets/utils/functions';
+
+import { russianToEnglishWeekdays, tableHeaderForTeacher } from '../../../assets/utils/arrays';
+import { fetchStudentsSchedule } from '../../../store/scheduleSlice';
+import teacherImg from '../../../assets/images/avatar.svg';
+
+import './style.css';
 
 export const TeacherSchedule = () => {
   const [filteredSchedule, setFilteredSchedule] = useState([]);
@@ -67,7 +67,7 @@ export const TeacherSchedule = () => {
           <tbody>
           {filteredSchedule.length === 0 ? (
             <tr>
-              <td colSpan="7" className="table-body_row_item no_lessons">Пары отсутствуют</td>
+              <td colSpan="9" className="table-body_row_item no_lessons">Пары отсутствуют</td>
             </tr>
           ) : (
             filteredSchedule.map((tableItem) => (

@@ -56,26 +56,23 @@ export const ScheduleSelectors = () => {
   const handleWeekDayChange = (selectedOption) => {
     setCurrentWeekDay(matchDayOfWeek2(selectedOption.value));
     dispatch(setWeekDay(selectedOption.value));
-    // updateWeekDay(selectedOption.value);
   };
 
   const handleWeekNumberChange = (selectedOption) => {
     setSelectedWeekNumber(selectedOption.value);
     dispatch(setWeekNumber(selectedOption.value));
-    // updateWeekNumber(selectedOption.value);
   };
+
   const handleCheckboxNumerator = () => {
     setIsCheckedNumerator(true);
     setIsCheckedDenominator(false);
     dispatch(setWeekName(true));
-    // updateWeekName(true);
   }
 
   const handleCheckboxDenominator = () => {
     setIsCheckedNumerator(false);
     setIsCheckedDenominator(true);
     dispatch(setWeekName(false));
-    // updateWeekName(false);
   }
   
   return (

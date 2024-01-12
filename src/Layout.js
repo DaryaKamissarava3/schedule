@@ -1,5 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import Select from "react-select";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Outlet } from 'react-router-dom';
+import Select from 'react-select';
+
 import {
   clearGroup,
   clearTeacherFio,
@@ -7,11 +10,9 @@ import {
   fetchTeachersFio,
   setGroup,
   setTeacherFio
-} from "./store/selectsData";
-import {fetchStudentsSchedule, fetchTeacherSchedule} from "./store/scheduleSlice";
+} from './store/selectsData';
 
-import {useDispatch, useSelector} from "react-redux";
-import {Outlet} from "react-router-dom";
+import { fetchStudentsSchedule, fetchTeacherSchedule } from './store/scheduleSlice';
 
 const customStyles = {
   control: (provided) => ({
@@ -28,7 +29,6 @@ const customStyles = {
 };
 
 const Layout = ({children}) => {
-
   const [selectedTeacher, setSelectedTeacher] = useState(null);
   const [selectedGroup, setSelectedGroup] = useState(null);
 
