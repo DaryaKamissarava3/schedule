@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {Link} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from 'react-router-dom';
 
 import {
   generateClassName,
@@ -14,7 +14,7 @@ import {fetchStudentsSchedule} from '../../../store/scheduleSlice';
 import teacherImg from '../../../assets/images/avatar.svg';
 
 import './style.css';
-import {clearTeacherFio, setGroup, setTeacherFio} from "../../../store/selectsData";
+import {clearTeacherFio, setGroup} from '../../../store/selectsData';
 
 export const TeacherSchedule = () => {
   const [filteredSchedule, setFilteredSchedule] = useState([]);
@@ -26,7 +26,11 @@ export const TeacherSchedule = () => {
   console.log(scheduleData);
 
   useEffect(() => {
-    setFilteredSchedule(filterAndSortSchedule(scheduleData));
+    const data = filterAndSortSchedule(scheduleData);
+    console.log(data);
+    const data2 = mergeObjectsWithSameValues(data);
+    setFilteredSchedule(data2)
+
   }, [scheduleData]);
 
   const filterAndSortSchedule = (schedule) => {
@@ -48,6 +52,28 @@ export const TeacherSchedule = () => {
         }
         return dayOrder[a.lessonDay] - dayOrder[b.lessonDay];
       });
+  };
+
+  const mergeObjectsWithSameValues = (schedule) => {
+    const mergedSchedule = [];
+    schedule.forEach((item) => {
+      const existingItem = mergedSchedule.find((mergedItem) => (
+        mergedItem.lessonDay === item.lessonDay &&
+        mergedItem.lessonNumber === item.lessonNumber &&
+        mergedItem.lessonTime === item.lessonTime &&
+        mergedItem.typeClassName === item.typeClassName &&
+        mergedItem.disciplineName === item.disciplineName &&
+        mergedItem.groupName === item.groupName
+      ));
+
+      if (existingItem) {
+        existingItem.groupName += `, ${item.groupName}`;
+      } else {
+        mergedSchedule.push({...item});
+      }
+    });
+
+    return mergedSchedule;
   };
 
   const handleGroupScheduleNavigate = (groupName) => {
@@ -88,14 +114,26 @@ export const TeacherSchedule = () => {
                 {tableItem.subGroup === 1 || tableItem.subGroup === 2 ? (
                   <td className="table-body_row_item">{tableItem.subGroup}п.</td>
                 ) : (
-                  <td className="table-body_row_item"></td>
+                  <td className="table-body_row_item">гр.</td>
                 )}
                 <td className="table-body_row_item">
                   {tableItem.numerator === false
                     ? 'знаменатель'
                     : tableItem.numerator === null
-                      ? 'всегда'
+                      ? '-'
                       : 'числитель'
+                  }
+                </td>
+                <td className="table-body_row_item">
+                  {tableItem.weekNumber === 1
+                    ? '1'
+                    : tableItem.weekNumber === 2
+                      ? '2'
+                      : tableItem.weekNumber === 3
+                        ? '3'
+                        : tableItem.weekNumber === 4
+                          ? '4'
+                          : '-'
                   }
                 </td>
                 <td className="table-body_row_item">{tableItem.frame}-{tableItem.location}</td>
