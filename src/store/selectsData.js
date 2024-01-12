@@ -22,7 +22,7 @@ export const fetchTeachersFio = createAsyncThunk(
   `selectsData/fetchTeachersFio`,
   async (_, {rejectWithValue}) => {
     try {
-      const response = await axios.get(`https://student.vstu.by/api/teachers/all`);
+      const response = await axios.get(`https://student.vstu.by/api/teacher/all`);
 
       if (response.status !== 200) {
         throw new Error('Server error!')

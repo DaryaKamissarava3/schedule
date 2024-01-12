@@ -5,7 +5,7 @@ export const fetchStudentsSchedule = createAsyncThunk(
   `schedule/fetchStudentsSchedule`,
   async (group, {rejectWithValue}) => {
     try {
-      const response = await axios.get(`https://student.vstu.by/timetable/patterns/search?q=groupName==${group}`);
+      const response = await axios.get(`https://student.vstu.by/api/schedule/group?name=${group}`);
 
       if (response.status !== 200) {
         throw new Error('Server error!')
@@ -22,7 +22,7 @@ export const fetchTeacherSchedule = createAsyncThunk(
   `schedule/fetchTeacherSchedule`,
   async (teacherFio, {rejectWithValue}) => {
     try {
-      const response = await axios.get(`https://student.vstu.by/timetable/patterns/search?q=teacherFio==${teacherFio}`);
+      const response = await axios.get(`https://student.vstu.by/api/schedule/teacherFIO?fio=${teacherFio}`);
 
       if (response.status !== 200) {
         throw new Error('Server error!')
