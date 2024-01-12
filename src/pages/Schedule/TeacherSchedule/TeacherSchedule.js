@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {Link} from 'react-router-dom';
 
 import {
   generateClassName,
@@ -9,11 +9,12 @@ import {
   shortenName
 } from '../../../assets/utils/functions';
 
-import { russianToEnglishWeekdays, tableHeaderForTeacher } from '../../../assets/utils/arrays';
-import { fetchStudentsSchedule } from '../../../store/scheduleSlice';
+import {russianToEnglishWeekdays, tableHeaderForTeacher} from '../../../assets/utils/arrays';
+import {fetchStudentsSchedule} from '../../../store/scheduleSlice';
 import teacherImg from '../../../assets/images/avatar.svg';
 
 import './style.css';
+import {clearTeacherFio, setGroup, setTeacherFio} from "../../../store/selectsData";
 
 export const TeacherSchedule = () => {
   const [filteredSchedule, setFilteredSchedule] = useState([]);
@@ -21,6 +22,8 @@ export const TeacherSchedule = () => {
   const dispatch = useDispatch();
 
   const scheduleData = useSelector((state) => state.schedule.teacherScheduleData);
+  const teacherName = useSelector((state) => state.selectsData.teacher);
+  console.log(scheduleData);
 
   useEffect(() => {
     setFilteredSchedule(filterAndSortSchedule(scheduleData));
@@ -49,10 +52,13 @@ export const TeacherSchedule = () => {
 
   const handleGroupScheduleNavigate = (groupName) => {
     dispatch(fetchStudentsSchedule(groupName));
+    dispatch(setGroup(groupName));
+    dispatch(clearTeacherFio());
   }
 
   return (
     <>
+      <h3>{teacherName}</h3>
       <div className="schedule-table-block">
         <table className="schedule-table">
           <thead className="table-header">

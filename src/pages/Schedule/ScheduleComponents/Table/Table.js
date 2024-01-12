@@ -15,6 +15,7 @@ import {
 
 import teacherImg from '../../../../assets/images/avatar.svg';
 import './style.css';
+import {clearGroup, setTeacherFio} from "../../../../store/selectsData";
 
 export const Table = ({scheduleData, isTeacherSchedule}) => {
   const currentWeekDay = useSelector((state) => state.weekData.weekDay);
@@ -30,7 +31,7 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
   }, [currentWeekDay, currentWeekNumber, currentWeekName, scheduleData]);
 
   const filterSchedule = (day, week, name, scheduleArray) => {
-    console.log(scheduleArray);
+    // console.log(scheduleArray);
     return scheduleArray.filter(item => {
       if (week === 'все') {
         return (item.lessonDay === day);
@@ -47,6 +48,8 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
 
   const handleTeacherScheduleNavigate = (teacherFio) => {
     dispatch(fetchTeacherSchedule("'" + teacherFio + "'"));
+    dispatch(setTeacherFio(teacherFio));
+    dispatch(clearGroup());
   }
 
   return (

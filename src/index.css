@@ -47,5 +47,9 @@ a {
 }
 
 .layout-children{
-  margin-top: 80px;
+  margin-top: 10px;
+}
+
+.group-title{
+  margin-bottom: 50px;
 }
