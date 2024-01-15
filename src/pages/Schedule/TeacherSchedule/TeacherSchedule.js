@@ -23,11 +23,11 @@ export const TeacherSchedule = () => {
 
   const scheduleData = useSelector((state) => state.schedule.teacherScheduleData);
   const teacherName = useSelector((state) => state.selectsData.teacher);
-  console.log(scheduleData);
+  // console.log(scheduleData);
 
   useEffect(() => {
     const data = filterAndSortSchedule(scheduleData);
-    console.log(data);
+    // console.log(data);
     const data2 = mergeObjectsWithSameValues(data);
     setFilteredSchedule(data2)
 
@@ -67,7 +67,7 @@ export const TeacherSchedule = () => {
       ));
 
       if (existingItem) {
-        existingItem.groupName += `, ${item.groupName}`;
+        existingItem.location += `, ${item.location}`;
       } else {
         mergedSchedule.push({...item});
       }
