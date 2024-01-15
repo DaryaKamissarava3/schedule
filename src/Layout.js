@@ -13,6 +13,7 @@ import {
 } from './store/selectsData';
 
 import { fetchStudentsSchedule, fetchTeacherSchedule } from './store/scheduleSlice';
+import {Header} from "./components/Header";
 
 const customStyles = {
   control: (provided) => ({
@@ -59,6 +60,7 @@ const Layout = ({children}) => {
   };
   return (
     <div className="container">
+      <Header />
       <div className="selectors">
         <Select
           styles={customStyles}

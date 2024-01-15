@@ -27,7 +27,7 @@ export const TeacherSchedule = () => {
 
   useEffect(() => {
     const data = filterAndSortSchedule(scheduleData);
-    // console.log(data);
+     console.log(data);
     const data2 = mergeObjectsWithSameValues(data);
     setFilteredSchedule(data2)
 

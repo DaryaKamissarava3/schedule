@@ -4,7 +4,6 @@ import { Routes, Route, Navigate} from 'react-router-dom';
 import Layout from './Layout';
 import { Main } from './pages/Main';
 
-
 export const App = () => {
   return (
     <Routes>
