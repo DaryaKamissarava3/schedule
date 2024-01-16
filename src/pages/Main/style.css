@@ -1,9 +1,38 @@
 .selectors {
+  margin-top: 40px;
+  margin-left: 60px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
 }
 
-.group-block {
-  margin-top: 50px;
+.layout-children {
+  margin-left: 60px;
+  margin-right: 60px;
+}
+
+.select-label {
+  color: #A7A7A7;
+  padding-left: 25px;
+}
+
+.line-break {
+  margin: 40px 0;
+  height: 1px;
+  width: 100%;
+  background-color: #EBEBEB;
+}
+
+@media screen  and (max-width: 480px) {
+  .selectors {
+    margin: 40px 30px 20px 30px;
+    padding-right: 30px;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .layout-children {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+  }
 }

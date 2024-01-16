@@ -18,7 +18,7 @@ export const Main = () => {
         </div>
       )}
       {selectedGroup && (
-        <div className="group-block">
+        <div>
           <StudentsSchedule/>
         </div>
       )}

@@ -87,15 +87,15 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
                 <td className="table-body_row_item">{matchLessonTypeAbbreviation(tableItem.typeClassName)}</td>
                 <td className="table-body_row_item">{tableItem.disciplineName}</td>
                 {tableItem.subGroup === 1 || tableItem.subGroup === 2 ? (
-                  <td className="table-body_row_item">{tableItem.subGroup}п.</td>
+                  <td className="table-body_row_item">{tableItem.subGroup}</td>
                 ) : (
-                  <td className="table-body_row_item">-</td>
+                  <td className="table-body_row_item">Вся группа</td>
                 )}
                 <td className="table-body_row_item">
                   {tableItem.numerator === false
                     ? 'знаменатель'
                     : tableItem.numerator === null
-                      ? '-'
+                      ? 'Всегда'
                       : 'числитель'
                   }
                 </td>
@@ -111,7 +111,6 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
                       className="teacher_link"
                       onClick={() => handleTeacherScheduleNavigate(tableItem.teacherFio)}
                     >
-                      <img className="teacher_cell_img" src={teacherImg} alt="Teacher image"/>
                       {shortenName(tableItem.teacherFio)}
                     </Link>
                   </td>
@@ -152,7 +151,6 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
                     </div>
                     :
                     <Link to={`/schedule/teacher/${item.teacherFio}`} className="block_teacher_information">
-                      <img className="teacher_cell_img mobile" src={teacherImg} alt="Teacher image"/>
                       <p className="block_teacher_name">{shortenName(item.teacherFio)}</p>
                     </Link>
                   }

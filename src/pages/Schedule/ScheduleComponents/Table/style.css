@@ -1,12 +1,12 @@
 .schedule-table-block {
-  background-color: #434C63;
+  background-color: #F5F5F5;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
 }
 
 .schedule-table {
   width: 100%;
-  margin: 40px 0;
+  margin: 30px 0;
   border-collapse: collapse;
 }
 
@@ -17,7 +17,7 @@
 .table-header {
   height: 60px;
   font-size: 18px;
-  background-color: #434C63;
+  background-color: #F5F5F5;
 }
 
 .table-header th:first-child{
@@ -29,8 +29,8 @@
 }
 
 .table-header_item {
-  padding: 0 20px;
-  color: #ffffff;
+  padding: 20px 20px;
+  color: #494A4A;
   border-right: 1px solid #ffffff;
 }
 
@@ -70,7 +70,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  text-decoration: none;
   transition: color linear .2s;
 }
 

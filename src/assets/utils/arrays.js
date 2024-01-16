@@ -1,11 +1,11 @@
-export const tableHeaderForStudents = ['Пара', 'Время', 'Тип', 'Дисциплина', '№ п.п','Неделя', 'Аудитория', 'Преподаватель'];
+export const tableHeaderForStudents = ['Пара', 'Время', 'Тип занятия', 'Дисциплина', 'Подгруппа','Неделя', 'Аудитория', 'Преподаватель'];
 
-export const tableHeaderForTeacher = ['Пара','День', 'Время', 'Тип', 'Дисциплина', '№ п.п','Ч / З','Неделя', 'Аудитория', 'Группа'];
+export const tableHeaderForTeacher = ['Пара','День', 'Время', 'Тип занятия', 'Дисциплина', 'Подгруппа','Числитель / Знаменатель','Неделя', 'Аудитория', 'Группа'];
 
 export const lessonAbbreviations = [
-  {typeClassName: 'Лекция', abbreviation: 'ЛК'},
-  {typeClassName: 'Лабораторная работа', abbreviation: 'ЛР'},
-  {typeClassName: 'Практическая работа', abbreviation: 'ПР'},
+  {typeClassName: 'Лекция', abbreviation: 'Лекция'},
+  {typeClassName: 'Лабораторная работа', abbreviation: 'Лабораторная'},
+  {typeClassName: 'Практическая работа', abbreviation: 'Практическая'},
 ];
 
 export const lessonTime = [

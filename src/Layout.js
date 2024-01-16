@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Outlet } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {Outlet} from 'react-router-dom';
 import Select from 'react-select';
 
 import {
@@ -12,14 +12,16 @@ import {
   setTeacherFio
 } from './store/selectsData';
 
-import { fetchStudentsSchedule, fetchTeacherSchedule } from './store/scheduleSlice';
+import {fetchStudentsSchedule, fetchTeacherSchedule} from './store/scheduleSlice';
 import {Header} from "./components/Header";
+import {Footer} from "./components/Footer";
 
 const customStyles = {
   control: (provided) => ({
     ...provided,
     width: 300,
     marginRight: 20,
+    marginTop: 13,
     cursor: 'pointer',
   }),
   menu: (provided) => ({
@@ -60,23 +62,32 @@ const Layout = ({children}) => {
   };
   return (
     <div className="container">
-      <Header />
+      <Header/>
       <div className="selectors">
-        <Select
-          styles={customStyles}
-          options={teachersData.map((teacher) => ({value: teacher.fio, label: teacher.fio}))}
-          value={selectedTeacher}
-          onChange={handleTeacherChange}
-          placeholder="Выберите ФИО преподавателя"
-        />
-        <Select
-          styles={customStyles}
-          options={groupsData.map((group) => ({value: group.name, label: group.name}))}
-          value={selectedGroup}
-          onChange={handleGroupChange}
-          placeholder="Выберите группу"
-        />
+        <div className="select-container">
+          <label htmlFor="teacherSelect" className="select-label">Ф.И.О преподавателя:</label>
+          <Select
+            id="teacherSelect"
+            styles={customStyles}
+            options={teachersData.map((teacher) => ({value: teacher.fio, label: teacher.fio}))}
+            value={selectedTeacher}
+            onChange={handleTeacherChange}
+            placeholder="Выберите ФИО преподавателя"
+          />
+        </div>
+        <div className="select-container">
+          <label htmlFor="groupSelect" className="select-label">Группа:</label>
+          <Select
+            id="groupSelect"
+            styles={customStyles}
+            options={groupsData.map((group) => ({value: group.name, label: group.name}))}
+            value={selectedGroup}
+            onChange={handleGroupChange}
+            placeholder="Выберите группу"
+          />
+        </div>
       </div>
+      <span className="line-break"></span>
       <main className="layout-children">
         {children}
         <Outlet/>

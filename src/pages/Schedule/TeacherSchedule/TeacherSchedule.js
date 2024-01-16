@@ -84,7 +84,7 @@ export const TeacherSchedule = () => {
 
   return (
     <>
-      <h3>{teacherName}</h3>
+      <h3 className="teacher-name-title">{teacherName}</h3>
       <div className="schedule-table-block">
         <table className="schedule-table">
           <thead className="table-header">
@@ -112,16 +112,16 @@ export const TeacherSchedule = () => {
                 <td className="table-body_row_item">{matchLessonTypeAbbreviation(tableItem.typeClassName)}</td>
                 <td className="table-body_row_item">{tableItem.disciplineName}</td>
                 {tableItem.subGroup === 1 || tableItem.subGroup === 2 ? (
-                  <td className="table-body_row_item">{tableItem.subGroup}п.</td>
+                  <td className="table-body_row_item">{tableItem.subGroup}</td>
                 ) : (
-                  <td className="table-body_row_item">гр.</td>
+                  <td className="table-body_row_item">Вся группа</td>
                 )}
                 <td className="table-body_row_item">
                   {tableItem.numerator === false
-                    ? 'знаменатель'
+                    ? 'Знаменатель'
                     : tableItem.numerator === null
-                      ? '-'
-                      : 'числитель'
+                      ? 'Всегда'
+                      : 'Числитель'
                   }
                 </td>
                 <td className="table-body_row_item">
@@ -133,7 +133,7 @@ export const TeacherSchedule = () => {
                         ? '3'
                         : tableItem.weekNumber === 4
                           ? '4'
-                          : '-'
+                          : 'Всегда'
                   }
                 </td>
                 <td className="table-body_row_item">{tableItem.frame}-{tableItem.location}</td>
@@ -175,15 +175,15 @@ export const TeacherSchedule = () => {
                     <p className="description_lesson_time">Время: {matchLessonTime(item.lessonNumber)}</p>
                     <p className="description_lesson_location">{item.frame}-{item.location} ауд.</p>
                   </div>
-
                   <div>
-                    {item.groupName}
+                    <Link
+                      to={`/schedule/group/${item.groupName}`}
+                      className="teacher_link"
+                      onClick={() => handleGroupScheduleNavigate(item.groupName)}
+                    >
+                      {item.groupName}
+                    </Link>
                   </div>
-                  :
-                  <Link to={`/schedule/teacher/${item.teacherFio}`} className="block_teacher_information">
-                    <img className="teacher_cell_img mobile" src={teacherImg} alt="Teacher image"/>
-                    <p className="block_teacher_name">{shortenName(item.teacherFio)}</p>
-                  </Link>
 
                 </div>
               </div>

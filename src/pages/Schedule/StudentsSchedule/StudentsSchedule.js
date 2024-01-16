@@ -1,10 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 
-import { ErrorMessage } from '../../../components/Error/ErrorMessage';
-import { Table } from '../ScheduleComponents/Table';
-import { Spinner } from '../../../components/Spinner';
-import { ScheduleSelectors } from '../ScheduleComponents/ScheduleSelectors';
+import {ErrorMessage} from '../../../components/Error/ErrorMessage';
+import {Table} from '../ScheduleComponents/Table';
+import {Spinner} from '../../../components/Spinner';
+import {ScheduleSelectors} from '../ScheduleComponents/ScheduleSelectors';
 
 export const StudentsSchedule = () => {
   const {studentsScheduleStatus, studentsScheduleData, studentsScheduleError} = useSelector((state) => state.schedule);
@@ -16,8 +16,10 @@ export const StudentsSchedule = () => {
       {studentsScheduleError && <ErrorMessage error={studentsScheduleError}/>}
       {studentsScheduleStatus !== 'loading' && !studentsScheduleError && (
         <>
-          <h3 className="group-title">Группа: {groupName}</h3>
-          <ScheduleSelectors/>
+          <div className="group-selectors-block">
+            <h3 className="group-title">Группа: {groupName}</h3>
+            <ScheduleSelectors/>
+          </div>
           <Table scheduleData={studentsScheduleData} isTeacherSchedule={false}/>
         </>
       )}

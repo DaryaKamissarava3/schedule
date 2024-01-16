@@ -20,7 +20,7 @@ const customStyles = {
 export const CustomSelect = ({ options, placeholder, value, onChange, isDisabled, label }) => {
   return (
     <span className="custom-select-container">
-      <label htmlFor="custom-select" className="custom-select_label">{label}</label>
+      <label htmlFor="custom-select" className="custom-select_label">{label}:</label>
       <Select
         id="custom-select"
         options={options}

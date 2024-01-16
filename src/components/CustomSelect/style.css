@@ -5,7 +5,8 @@
 .custom-select_label {
   position: absolute;
   top: -30px;
-  left: 0;
+  left: 20px;
+  color: #a2a2a2;
 }
 
 @media screen  and (max-width: 480px) {
