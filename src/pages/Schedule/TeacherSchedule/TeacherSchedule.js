@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {Link} from 'react-router-dom';
 
 import {
   generateClassName,
   matchLessonTime,
-  matchLessonTypeAbbreviation, shortenDisciplineName,
-  shortenName
+  matchLessonTypeAbbreviation,
+
 } from '../../../assets/utils/functions';
 
 import {russianToEnglishWeekdays, tableHeaderForTeacher} from '../../../assets/utils/arrays';
 import {fetchStudentsSchedule} from '../../../store/scheduleSlice';
-import teacherImg from '../../../assets/images/avatar.svg';
+
 
 import './style.css';
 import {clearTeacherFio, setGroup} from '../../../store/selectsData';
@@ -21,13 +21,15 @@ export const TeacherSchedule = () => {
 
   const dispatch = useDispatch();
 
+  const currentWeekNumber = useSelector((state) => state.weekData.weekNumber);
+  const currentWeekName = useSelector((state) => state.weekData.weekName);
   const scheduleData = useSelector((state) => state.schedule.teacherScheduleData);
   const teacherName = useSelector((state) => state.selectsData.teacher);
   // console.log(scheduleData);
 
   useEffect(() => {
     const data = filterAndSortSchedule(scheduleData);
-     console.log(data);
+    console.log(data);
     const data2 = mergeObjectsWithSameValues(data);
     setFilteredSchedule(data2)
 
@@ -160,31 +162,53 @@ export const TeacherSchedule = () => {
             </div>
           ) : (
             filteredSchedule.map((item) => (
-              <div className={`mobile-table-block ${generateClassName(item.typeClassName)}`} key={item.id}>
-                <div className="table-block_inner">
-                  <div className="block_inner_description">
-                    <div className="block_description_name">
-                      <h4 className="description_lesson_name">{shortenDisciplineName(item.disciplineName)}</h4>
-                      <p className="description_lesson_type">({matchLessonTypeAbbreviation(item.typeClassName)})</p>
+              <div className={`mobile-card ${generateClassName(item.typeClassName)}`} key={item.id}>
+                <div className="card-inner">
+                  <div>
+                    <h3 className="card-text discipline-name"><b>{item.disciplineName}</b></h3>
+                    <div className="card-text">{item.typeClassName}</div>
+                  </div>
+                  <span className="card-divider"></span>
+                  <div>
+                    <div className="card-text"><span className="card-text-key"><b>День:</b></span>{item.lessonDay}</div>
+                    <div className="card-text"><span className="card-text-key"><b>Пара:</b></span>{item.lessonNumber}</div>
+                    <div className="card-text"><span className="card-text-key"><b>Время:</b></span>{item.lessonTime}</div>
+                    <div className="card-text"><span
+                      className="card-text-key"><b>Аудитория:</b></span>{item.frame}-{item.location}</div>
+                    <div className="card-text">
+                      <span className="card-text-key">
+                        <b>Группа:</b>
+                      </span>
+                      <Link
+                        to={`/schedule/group/${item.groupName}`}
+                        onClick={() => handleGroupScheduleNavigate(item.groupName)}
+                      >
+                        {item.groupName}
+                      </Link>
+                    </div>
+                    <div className="card-text"><span className="card-text-key"><b>Подгруппа:</b></span>
                       {item.subGroup === 1 || item.subGroup === 2 ? (
-                        <p className="description_lesson_subGroup">{item.subGroup}п.</p>
+                        <span>{item.subGroup}</span>
                       ) : (
-                        <p className="description_lesson_subGroup"></p>
+                        <span>Вся группа</span>
                       )}
                     </div>
-                    <p className="description_lesson_time">Время: {matchLessonTime(item.lessonNumber)}</p>
-                    <p className="description_lesson_location">{item.frame}-{item.location} ауд.</p>
                   </div>
+                  <span className="card-divider"></span>
                   <div>
-                    <Link
-                      to={`/schedule/group/${item.groupName}`}
-                      className="teacher_link"
-                      onClick={() => handleGroupScheduleNavigate(item.groupName)}
-                    >
-                      {item.groupName}
-                    </Link>
+                    <div className="card-text">
+                      <span className="card-text-key">
+                        <b>Неделя:</b>
+                      </span>
+                      {currentWeekNumber}
+                    </div>
+                    <div className="card-text">
+                      <span className="card-text-key">
+                        <b>Числитель/Знаменатель:</b>
+                      </span>
+                      {currentWeekName}
+                    </div>
                   </div>
-
                 </div>
               </div>
             ))

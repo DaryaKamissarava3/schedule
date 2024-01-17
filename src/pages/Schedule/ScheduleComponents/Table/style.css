@@ -97,8 +97,7 @@
     margin-top: 40px;
     margin-bottom: 40px;
     display: block;
-    max-width: 400px;
-    width: 360px;
+    max-width: 420px;
   }
 
   .mobile-table-container {
@@ -106,19 +105,9 @@
     flex-direction: column;
   }
 
-  .mobile-table-header {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    color: #ffffff;
-    background-color: #434C63;
-    border-top-right-radius: 12px;
-    border-top-left-radius: 12px;
-  }
-
-  .mobile-table-block {
+  .mobile-card {
+    margin-bottom: 35px;
+    width: 420px;
     border: 1px solid #cecfd0;
   }
 
@@ -127,13 +116,40 @@
     padding: 20px 0;
   }
 
-  .table-block_inner {
-    padding: 10px 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  .card-divider{
+    margin-bottom: 20px;
+    width: 100%;
+    height: 1px;
+    background-color: #a2a2a2;
   }
+
+  .card-inner {
+    padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .card-text.discipline-name{
+    font-weight: 500;
+    font-size: 24px;
+    color: #494A4A;
+  }
+
+  .card-text-key{
+color: #494A4A;
+    padding-right: 5px;
+  }
+
+  .card-text{
+    padding-left: 28px;
+    padding-bottom: 20px;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    color: #505050;
+  }
+
 
   .block_description_name {
     display: flex;

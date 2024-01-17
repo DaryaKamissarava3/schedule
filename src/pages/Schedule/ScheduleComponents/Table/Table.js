@@ -6,7 +6,7 @@ import {fetchTeacherSchedule} from '../../../../store/scheduleSlice';
 
 import {tableHeaderForStudents, tableHeaderForTeacher} from '../../../../assets/utils/arrays';
 import {
-  generateClassName,
+  generateClassName, matchDayOfWeek2,
   matchLessonTime,
   matchLessonTypeAbbreviation,
   shortenDisciplineName,
@@ -123,37 +123,60 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
       </div>
       <div className="schedule-table_mobile">
         <div className="mobile-table-container">
-          <div className="mobile-table-header">{currentWeekDay}</div>
           {filteredSchedule.length === 0 ? (
             <div className="mobile-table-block">
               <h3 className="block_no_lessons">Пары отсутствуют</h3>
             </div>
           ) : (
             filteredSchedule.map((item) => (
-              <div className={`mobile-table-block ${generateClassName(item.typeClassName)}`} key={item.id}>
-                <div className="table-block_inner">
-                  <div className="block_inner_description">
-                    <div className="block_description_name">
-                      <h4 className="description_lesson_name">{shortenDisciplineName(item.disciplineName)}</h4>
-                      <p className="description_lesson_type">({matchLessonTypeAbbreviation(item.typeClassName)})</p>
+              <div className={`mobile-card ${generateClassName(item.typeClassName)}`} key={item.id}>
+                <div className="card-inner">
+                  <div>
+                    <h3 className="card-text discipline-name"><b>{item.disciplineName}</b></h3>
+                    <div className="card-text">{item.typeClassName}</div>
+                  </div>
+                  <span className="card-divider"></span>
+                  <div>
+                    <div className="card-text"><span className="card-text-key"><b>День:</b></span>{matchDayOfWeek2(item.lessonDay)}</div>
+                    <div className="card-text"><span className="card-text-key"><b>Пара:</b></span>{item.lessonNumber}</div>
+                    <div className="card-text"><span className="card-text-key"><b>Время:</b></span>{matchLessonTime(item.lessonNumber)}</div>
+                    <div className="card-text"><span
+                      className="card-text-key"><b>Аудитория:</b></span>{item.frame}-{item.location}</div>
+                    <div className="card-text"><span className="card-text-key"><b>Группа:</b></span>{item.groupName}</div>
+                    <div className="card-text"><span className="card-text-key"><b>Подгруппа:</b></span>
                       {item.subGroup === 1 || item.subGroup === 2 ? (
-                        <p className="description_lesson_subGroup">{item.subGroup}п.</p>
+                        <span>{item.subGroup}</span>
                       ) : (
-                        <p className="description_lesson_subGroup"></p>
+                        <span>Вся группа</span>
                       )}
                     </div>
-                    <p className="description_lesson_time">Время: {matchLessonTime(item.lessonNumber)}</p>
-                    <p className="description_lesson_location">{item.frame}-{item.location} ауд.</p>
                   </div>
-                  {isTeacherSchedule ?
-                    <div>
-                      {item.groupName}
-                    </div>
-                    :
-                    <Link to={`/schedule/teacher/${item.teacherFio}`} className="block_teacher_information">
-                      <p className="block_teacher_name">{shortenName(item.teacherFio)}</p>
+                  <div className="card-text">
+                    <span className="card-text-key">
+                      <b>Преподаватель:</b>
+                    </span>
+                    <Link
+                      to={`/schedule/teacher/${item.teacherFio}`}
+                      onClick={() => handleTeacherScheduleNavigate(item.teacherFio)}
+                    >
+                      {shortenName(item.teacherFio)}
                     </Link>
-                  }
+                  </div>
+                  <span className="card-divider"></span>
+                  <div>
+                    <div className="card-text">
+                      <span className="card-text-key">
+                        <b>Неделя:</b>
+                      </span>
+                      {currentWeekNumber}
+                    </div>
+                    <div className="card-text">
+                      <span className="card-text-key">
+                        <b>Числитель/Знаменатель:</b>
+                      </span>
+                      {currentWeekName}
+                    </div>
+                  </div>
                 </div>
               </div>
             ))

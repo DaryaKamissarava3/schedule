@@ -6,19 +6,12 @@ export const fetchWeekDay = createAsyncThunk(
   'weekData/fetchWeekDay',
   async (token, {rejectWithValue}) => {
     try {
-      const config = {
-        headers: {
-          'Content-type': "application/x-www-form-urlencoded",
-          'Authorization': `Bearer ${token}`,
-        },
-      };
+      const response = await axios.get('https://student.vstu.by/api/schedule/day');
 
-      const {data} = await axios.get(
-        'https://student.vstu.by/api/schedule/day',
-        config
-      );
-
-      return data;
+      if (response.status !== 200) {
+        throw new Error('Server error!');
+      }
+      return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
     }

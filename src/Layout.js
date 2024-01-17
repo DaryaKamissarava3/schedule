@@ -15,6 +15,7 @@ import {
 import {fetchStudentsSchedule, fetchTeacherSchedule} from './store/scheduleSlice';
 import {Header} from "./components/Header";
 import {Footer} from "./components/Footer";
+import {fetchWeekDay, fetchWeekName, fetchWeekNumber} from "./store/weekDataSlice";
 
 const customStyles = {
   control: (provided) => ({
@@ -43,6 +44,9 @@ const Layout = ({children}) => {
   useEffect(() => {
     dispatch(fetchTeachersFio());
     dispatch(fetchStudentsGroups());
+    dispatch(fetchWeekDay());
+    dispatch(fetchWeekName());
+    dispatch(fetchWeekNumber());
   }, []);
 
   const handleTeacherChange = (selectedOption) => {
