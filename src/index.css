@@ -52,13 +52,13 @@ a {
 }
 
 .group-selectors-block {
+  margin-top: 25px;
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
 .group-title {
-  margin-bottom: 50px;
   margin-right: 80px;
   font-weight: 600;
   font-size: 24px;
@@ -66,12 +66,32 @@ a {
   color: #494A4A;
 }
 
+.teacher-select {
+  margin-right: 30px;
+  width: 330px;
+}
+
+.group-select {
+  width: 250px;
+}
+
 @media screen  and (max-width: 480px) {
   .group-selectors-block {
+    margin-top: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
+
+  .teacher-select {
+    margin-right: 0;
+    width: 400px;
+  }
+
+  .group-select {
+    width: 400px;
+  }
+
 
   .group-title {
     margin-bottom: 0;

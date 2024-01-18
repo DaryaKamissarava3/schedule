@@ -41,15 +41,16 @@
   .checkbox-container {
     margin-top: 40px;
     margin-left: 0;
-    position: relative;
+    display: flex;
+    justify-content: center;
   }
 
   .checkbox-label_1 {
-    left: 0;
+    left: 30%;
   }
 
   .checkbox-label_2 {
-    left: 80px;
+    left: 50%;
   }
 
   .schedule-checkbox {

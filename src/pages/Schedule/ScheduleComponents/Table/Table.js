@@ -1,21 +1,20 @@
-import React, {useEffect, useState} from 'react';
-import {Link} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-import {fetchTeacherSchedule} from '../../../../store/scheduleSlice';
-
-import {tableHeaderForStudents, tableHeaderForTeacher} from '../../../../assets/utils/arrays';
+import { fetchTeacherSchedule } from '../../../../store/scheduleSlice';
+import { clearGroup, setTeacherFio } from '../../../../store/selectsData';
+import { tableHeaderForStudents, tableHeaderForTeacher } from '../../../../assets/utils/arrays';
 import {
-  generateClassName, matchDayOfWeek2,
+  generateClassName,
+  matchDayOfWeek2,
   matchLessonTime,
-  matchLessonTypeAbbreviation, matchWeekName,
-  shortenDisciplineName,
+  matchLessonTypeAbbreviation,
+  matchWeekName,
   shortenName
 } from '../../../../assets/utils/functions';
 
-import teacherImg from '../../../../assets/images/avatar.svg';
 import './style.css';
-import {clearGroup, setTeacherFio} from "../../../../store/selectsData";
 
 export const Table = ({scheduleData, isTeacherSchedule}) => {
   const currentWeekDay = useSelector((state) => state.weekData.weekDay);
@@ -31,7 +30,7 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
   }, [currentWeekDay, currentWeekNumber, currentWeekName, scheduleData]);
 
   const filterSchedule = (day, week, name, scheduleArray) => {
-     console.log(scheduleArray);
+    console.log(scheduleArray);
     return scheduleArray.filter(item => {
       if (week === 'все') {
         return (item.lessonDay === day);
@@ -137,12 +136,16 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
                   </div>
                   <span className="card-divider"></span>
                   <div>
-                    <div className="card-text"><span className="card-text-key"><b>День:</b></span>{matchDayOfWeek2(item.lessonDay)}</div>
-                    <div className="card-text"><span className="card-text-key"><b>Пара:</b></span>{item.lessonNumber}</div>
-                    <div className="card-text"><span className="card-text-key"><b>Время:</b></span>{matchLessonTime(item.lessonNumber)}</div>
+                    <div className="card-text"><span
+                      className="card-text-key"><b>День:</b></span>{matchDayOfWeek2(item.lessonDay)}</div>
+                    <div className="card-text"><span className="card-text-key"><b>Пара:</b></span>{item.lessonNumber}
+                    </div>
+                    <div className="card-text"><span
+                      className="card-text-key"><b>Время:</b></span>{matchLessonTime(item.lessonNumber)}</div>
                     <div className="card-text"><span
                       className="card-text-key"><b>Аудитория:</b></span>{item.frame}-{item.location}</div>
-                    <div className="card-text"><span className="card-text-key"><b>Группа:</b></span>{item.groupName}</div>
+                    <div className="card-text"><span className="card-text-key"><b>Группа:</b></span>{item.groupName}
+                    </div>
                     <div className="card-text"><span className="card-text-key"><b>Подгруппа:</b></span>
                       {item.subGroup === 1 || item.subGroup === 2 ? (
                         <span>{item.subGroup}</span>

@@ -72,7 +72,8 @@ const Layout = ({children}) => {
           <label htmlFor="teacherSelect" className="select-label">Ф.И.О преподавателя:</label>
           <Select
             id="teacherSelect"
-            styles={customStyles}
+            className="teacher-select"
+            // styles={customStyles}
             options={teachersData.map((teacher) => ({value: teacher.fio, label: teacher.fio}))}
             value={selectedTeacher}
             onChange={handleTeacherChange}
@@ -83,7 +84,8 @@ const Layout = ({children}) => {
           <label htmlFor="groupSelect" className="select-label">Группа:</label>
           <Select
             id="groupSelect"
-            styles={customStyles}
+            className="group-select"
+            // styles={customStyles}
             options={groupsData.map((group) => ({value: group.name, label: group.name}))}
             value={selectedGroup}
             onChange={handleGroupChange}

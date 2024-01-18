@@ -24,7 +24,8 @@ export const CustomSelect = ({ options, placeholder, value, onChange, isDisabled
       <Select
         id="custom-select"
         options={options}
-        styles={customStyles}
+        className="table-selectors"
+        // styles={customStyles}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
