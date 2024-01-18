@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import {
   generateClassName,
   matchLessonTime,
-  matchLessonTypeAbbreviation,
+  matchLessonTypeAbbreviation, matchWeekName,
 
 } from '../../../assets/utils/functions';
 
@@ -206,7 +206,7 @@ export const TeacherSchedule = () => {
                       <span className="card-text-key">
                         <b>Числитель/Знаменатель:</b>
                       </span>
-                      {currentWeekName}
+                      {matchWeekName(currentWeekName)}
                     </div>
                   </div>
                 </div>

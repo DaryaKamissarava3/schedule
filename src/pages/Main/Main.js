@@ -13,14 +13,14 @@ export const Main = () => {
   return (
     <>
       {selectedTeacher && (
-        <div>
+        <>
           <TeacherSchedule/>
-        </div>
+        </>
       )}
       {selectedGroup && (
-        <div>
+        <>
           <StudentsSchedule/>
-        </div>
+        </>
       )}
     </>
   );

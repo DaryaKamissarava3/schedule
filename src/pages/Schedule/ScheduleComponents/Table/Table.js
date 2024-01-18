@@ -8,7 +8,7 @@ import {tableHeaderForStudents, tableHeaderForTeacher} from '../../../../assets/
 import {
   generateClassName, matchDayOfWeek2,
   matchLessonTime,
-  matchLessonTypeAbbreviation,
+  matchLessonTypeAbbreviation, matchWeekName,
   shortenDisciplineName,
   shortenName
 } from '../../../../assets/utils/functions';
@@ -174,7 +174,7 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
                       <span className="card-text-key">
                         <b>Числитель/Знаменатель:</b>
                       </span>
-                      {currentWeekName}
+                      {matchWeekName(currentWeekName)}
                     </div>
                   </div>
                 </div>

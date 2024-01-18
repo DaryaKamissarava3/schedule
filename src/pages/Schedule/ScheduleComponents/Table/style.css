@@ -20,11 +20,11 @@
   background-color: #F5F5F5;
 }
 
-.table-header th:first-child{
+.table-header th:first-child {
   border-top-left-radius: 12px;
 }
 
-.table-header th:last-child{
+.table-header th:last-child {
   border-top-right-radius: 12px;
 }
 
@@ -96,7 +96,7 @@
   .schedule-table_mobile {
     margin-top: 40px;
     margin-bottom: 40px;
-    display: block;
+    display: flex;
     max-width: 420px;
   }
 
@@ -116,7 +116,7 @@
     padding: 20px 0;
   }
 
-  .card-divider{
+  .card-divider {
     margin-bottom: 20px;
     width: 100%;
     height: 1px;
@@ -130,18 +130,18 @@
     justify-content: space-between;
   }
 
-  .card-text.discipline-name{
+  .card-text.discipline-name {
     font-weight: 500;
     font-size: 24px;
     color: #494A4A;
   }
 
-  .card-text-key{
-color: #494A4A;
+  .card-text-key {
+    color: #494A4A;
     padding-right: 5px;
   }
 
-  .card-text{
+  .card-text {
     padding-left: 28px;
     padding-bottom: 20px;
     font-size: 18px;

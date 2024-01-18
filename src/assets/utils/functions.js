@@ -1,11 +1,5 @@
 import {lessonAbbreviations, lessonTime, russianToEnglishWeekdays} from "./arrays";
 
-export const getCurrentDayOfWeek = () => {
-  const daysOfWeek = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
-  const today = new Date();
-  const dayOfWeek = today.getDay();
-  return daysOfWeek[dayOfWeek];
-};
 
 export const shortenName = (fullName) => {
   const splitName = fullName.split(' ');
@@ -45,6 +39,10 @@ export const matchLessonTypeAbbreviation = (typeClassName) => {
 export const matchLessonTime = (lessonNumber) => {
   const match = lessonTime.find((item) => item.lessonNumber === lessonNumber);
   return match ? match.lessonTime : '';
+}
+
+export const matchWeekName = (weekName) => {
+  return weekName === true ? 'Числитель' : 'Знаменатель';
 }
 
 export const shortenDisciplineName = (fullName) => {
