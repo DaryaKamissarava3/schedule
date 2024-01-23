@@ -5,6 +5,12 @@
   overflow-x: auto;
 }
 
+.no-lesson-img{
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
   height: 5px;

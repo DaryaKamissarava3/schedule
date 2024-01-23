@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 
 import {
@@ -11,10 +11,10 @@ import {
 
 import {russianToEnglishWeekdays, tableHeaderForTeacher} from '../../../assets/utils/arrays';
 import {fetchStudentsSchedule} from '../../../store/scheduleSlice';
-
-
-import './style.css';
 import {clearTeacherFio, setGroup} from '../../../store/selectsData';
+import noLessons from '../../../assets/images/no-lessons.svg';
+import './style.css';
+import noLessonsSmall from "../../../assets/images/no-lesson-small.svg";
 
 export const TeacherSchedule = () => {
   const [filteredSchedule, setFilteredSchedule] = useState([]);
@@ -25,11 +25,9 @@ export const TeacherSchedule = () => {
   const currentWeekName = useSelector((state) => state.weekData.weekName);
   const scheduleData = useSelector((state) => state.schedule.teacherScheduleData);
   const teacherName = useSelector((state) => state.selectsData.teacher);
-  // console.log(scheduleData);
 
   useEffect(() => {
     const data = filterAndSortSchedule(scheduleData);
-    console.log(data);
     const data2 = mergeObjectsWithSameValues(data);
     setFilteredSchedule(data2)
 
@@ -101,7 +99,9 @@ export const TeacherSchedule = () => {
           <tbody>
           {filteredSchedule.length === 0 ? (
             <tr>
-              <td colSpan="10" className="table-body_row_item no_lessons">Пары отсутствуют</td>
+              <td colSpan="10" className="table-body_row_item no_lessons">
+                <img className="no-lesson-img" src={noLessons} alt="Пар нет"/>
+              </td>
             </tr>
           ) : (
             filteredSchedule.map((tableItem) => (
@@ -158,7 +158,7 @@ export const TeacherSchedule = () => {
         <div className="mobile-table-container">
           {filteredSchedule.length === 0 ? (
             <div className="mobile-table-block">
-              <h3 className="block_no_lessons">Пары отсутствуют</h3>
+              <img className="no-lesson-img" src={noLessonsSmall} alt="Пар нет"/>
             </div>
           ) : (
             filteredSchedule.map((item) => (
@@ -171,8 +171,10 @@ export const TeacherSchedule = () => {
                   <span className="card-divider"></span>
                   <div>
                     <div className="card-text"><span className="card-text-key"><b>День:</b></span>{item.lessonDay}</div>
-                    <div className="card-text"><span className="card-text-key"><b>Пара:</b></span>{item.lessonNumber}</div>
-                    <div className="card-text"><span className="card-text-key"><b>Время:</b></span>{item.lessonTime}</div>
+                    <div className="card-text"><span className="card-text-key"><b>Пара:</b></span>{item.lessonNumber}
+                    </div>
+                    <div className="card-text"><span className="card-text-key"><b>Время:</b></span>{item.lessonTime}
+                    </div>
                     <div className="card-text"><span
                       className="card-text-key"><b>Аудитория:</b></span>{item.frame}-{item.location}</div>
                     <div className="card-text">

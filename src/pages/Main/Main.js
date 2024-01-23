@@ -5,6 +5,7 @@ import { StudentsSchedule } from '../Schedule/StudentsSchedule';
 import { TeacherSchedule } from '../Schedule/TeacherSchedule';
 
 import './style.css';
+import {Footer} from "../../components/Footer";
 
 export const Main = () => {
   const selectedTeacher = useSelector((state) => state.selectsData.teacher);
@@ -15,11 +16,13 @@ export const Main = () => {
       {selectedTeacher && (
         <>
           <TeacherSchedule/>
+          <Footer />
         </>
       )}
       {selectedGroup && (
         <>
           <StudentsSchedule/>
+          <Footer />
         </>
       )}
     </>

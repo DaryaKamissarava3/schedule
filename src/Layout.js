@@ -1,7 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {Outlet} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Outlet } from 'react-router-dom';
 import Select from 'react-select';
+
+import { Header } from './components/Header';
+import { Footer } from './components/Footer';
 
 import {
   clearGroup,
@@ -11,11 +14,8 @@ import {
   setGroup,
   setTeacherFio
 } from './store/selectsData';
-
-import {fetchStudentsSchedule, fetchTeacherSchedule} from './store/scheduleSlice';
-import {Header} from "./components/Header";
-import {Footer} from "./components/Footer";
-import {fetchWeekDay, fetchWeekName, fetchWeekNumber} from "./store/weekDataSlice";
+import { fetchStudentsSchedule, fetchTeacherSchedule } from './store/scheduleSlice';
+import { fetchWeekDay, fetchWeekName, fetchWeekNumber } from './store/weekDataSlice';
 
 const Layout = ({children}) => {
   const [selectedTeacher, setSelectedTeacher] = useState(null);
@@ -69,7 +69,6 @@ const Layout = ({children}) => {
           <Select
             id="groupSelect"
             className="group-select"
-            // styles={customStyles}
             options={groupsData.map((group) => ({value: group.name, label: group.name}))}
             value={selectedGroup}
             onChange={handleGroupChange}
@@ -80,7 +79,7 @@ const Layout = ({children}) => {
       <span className="line-break"></span>
       <main className="layout-children">
         {children}
-        <Outlet/>
+        <Outlet />
       </main>
     </div>
   );

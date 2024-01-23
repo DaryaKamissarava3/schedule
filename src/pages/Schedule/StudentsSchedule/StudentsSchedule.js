@@ -5,6 +5,7 @@ import {ErrorMessage} from '../../../components/Error/ErrorMessage';
 import {Table} from '../ScheduleComponents/Table';
 import {Spinner} from '../../../components/Spinner';
 import {ScheduleSelectors} from '../ScheduleComponents/ScheduleSelectors';
+import {Footer} from "../../../components/Footer";
 
 export const StudentsSchedule = () => {
   const {studentsScheduleStatus, studentsScheduleData, studentsScheduleError} = useSelector((state) => state.schedule);

@@ -43,8 +43,8 @@ a {
   flex-direction: column;
 }
 
-
 .teacher-name-title {
+  margin-bottom: 40px;
   font-weight: 600;
   font-size: 24px;
   line-height: 30px;
@@ -85,8 +85,14 @@ a {
   }
 
   .group-title {
-    margin-bottom: 0;
+    margin-bottom: 60px;
     margin-right: 0;
+  }
+}
+
+@media screen  and (max-width: 910px) {
+  .group-title {
+    margin-bottom: 0;
   }
 }
 
@@ -102,6 +108,10 @@ a {
 }
 
 @media screen  and (max-width: 520px) {
+  .teacher-name-title {
+    margin-bottom: 0;
+  }
+
   .group-selectors-block {
     margin-top: 0;
     margin-bottom: 0;
@@ -111,8 +121,6 @@ a {
   }
 
   .group-title {
-    margin-bottom: 0;
-    margin-right: 0;
     font-weight: 600;
     font-size: 24px;
     line-height: 30px;

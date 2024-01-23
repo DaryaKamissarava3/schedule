@@ -13,6 +13,8 @@ import {
   matchWeekName,
   shortenName
 } from '../../../../assets/utils/functions';
+import noLessons from '../../../../assets/images/no-lessons.svg';
+import noLessonsSmall from '../../../../assets/images/no-lesson-small.svg';
 
 import './style.css';
 
@@ -74,7 +76,9 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
           <tbody>
           {filteredSchedule.length === 0 ? (
             <tr>
-              <td colSpan="8" className="table-body_row_item no_lessons">Пары отсутствуют</td>
+              <td colSpan="8" className="table-body_row_item no_lessons">
+                <img className="no-lesson-img" src={noLessons} alt="Пар нет"/>
+              </td>
             </tr>
           ) : (
             filteredSchedule.map((tableItem) => (
@@ -124,7 +128,7 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
         <div className="mobile-table-container">
           {filteredSchedule.length === 0 ? (
             <div className="mobile-table-block">
-              <h3 className="block_no_lessons">Пары отсутствуют</h3>
+              <img className="no-lesson-img" src={noLessonsSmall} alt="Пар нет"/>
             </div>
           ) : (
             filteredSchedule.map((item) => (
