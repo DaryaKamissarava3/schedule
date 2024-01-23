@@ -17,21 +17,6 @@ import {Header} from "./components/Header";
 import {Footer} from "./components/Footer";
 import {fetchWeekDay, fetchWeekName, fetchWeekNumber} from "./store/weekDataSlice";
 
-const customStyles = {
-  control: (provided) => ({
-    ...provided,
-    width: 300,
-    marginRight: 20,
-    marginTop: 13,
-    cursor: 'pointer',
-  }),
-  menu: (provided) => ({
-    ...provided,
-    width: 300,
-    zIndex: 100,
-  }),
-};
-
 const Layout = ({children}) => {
   const [selectedTeacher, setSelectedTeacher] = useState(null);
   const [selectedGroup, setSelectedGroup] = useState(null);
@@ -73,7 +58,6 @@ const Layout = ({children}) => {
           <Select
             id="teacherSelect"
             className="teacher-select"
-            // styles={customStyles}
             options={teachersData.map((teacher) => ({value: teacher.fio, label: teacher.fio}))}
             value={selectedTeacher}
             onChange={handleTeacherChange}

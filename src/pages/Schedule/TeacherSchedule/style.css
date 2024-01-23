@@ -15,7 +15,7 @@
   height: 100px;
 }
 
-@media screen  and (max-width: 480px) {
+@media screen  and (max-width: 520px) {
   .teacher-information-block {
     margin-top: 15px;
     margin-bottom: 0;

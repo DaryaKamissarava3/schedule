@@ -13,7 +13,7 @@
   color: #FFFFFF;
 }
 
-@media screen  and (max-width: 480px) {
+@media screen  and (max-width: 520px) {
   .header-container {
     padding: 0;
     height: 110px;

@@ -22,7 +22,7 @@
   background-color: #EBEBEB;
 }
 
-@media screen  and (max-width: 480px) {
+@media screen  and (max-width: 716px) {
   .selectors {
     margin: 50px 0 0 0;
     padding-right: 0;
@@ -38,7 +38,9 @@
   .line-break {
     margin-top: 0;
   }
+}
 
+@media screen  and (max-width: 520px) {
   .layout-children {
     margin: 0;
     display: flex;

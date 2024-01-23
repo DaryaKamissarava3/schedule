@@ -53,6 +53,7 @@ a {
 
 .group-selectors-block {
   margin-top: 25px;
+  margin-bottom: 40px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -75,7 +76,7 @@ a {
   width: 250px;
 }
 
-@media screen  and (max-width: 480px) {
+@media screen  and (max-width: 1150px) {
   .group-selectors-block {
     margin-top: 0;
     display: flex;
@@ -83,6 +84,13 @@ a {
     align-items: center;
   }
 
+  .group-title {
+    margin-bottom: 0;
+    margin-right: 0;
+  }
+}
+
+@media screen  and (max-width: 716px) {
   .teacher-select {
     margin-right: 0;
     width: 400px;
@@ -91,7 +99,16 @@ a {
   .group-select {
     width: 400px;
   }
+}
 
+@media screen  and (max-width: 520px) {
+  .group-selectors-block {
+    margin-top: 0;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
   .group-title {
     margin-bottom: 0;
