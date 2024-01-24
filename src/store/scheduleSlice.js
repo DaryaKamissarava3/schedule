@@ -82,6 +82,4 @@ const scheduleSlice = createSlice({
   })
 });
 
-export const { clearSchedule } = scheduleSlice.actions;
-
 export const scheduleReducer = scheduleSlice.reducer;

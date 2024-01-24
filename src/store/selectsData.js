@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const fetchStudentsGroups = createAsyncThunk(
@@ -38,8 +38,8 @@ export const fetchTeachersFio = createAsyncThunk(
 const initialState = {
   studentsGroups: [],
   teachersFio: [],
-  teacher:null,
-  group:null,
+  teacher: null,
+  group: null,
   studentsGroupsStatus: null,
   teachersFioStatus: null,
   studentsGroupsError: null,
@@ -49,7 +49,7 @@ const initialState = {
 const selectsDataSlice = createSlice({
   name: 'selectsData',
   initialState,
-  reducers:{
+  reducers: {
     setTeacherFio(state, action) {
       state.teacher = action.payload;
     },
@@ -91,6 +91,6 @@ const selectsDataSlice = createSlice({
   })
 });
 
-export const {setTeacherFio,setGroup,clearTeacherFio,clearGroup} = selectsDataSlice.actions;
+export const { setTeacherFio, setGroup, clearTeacherFio, clearGroup } = selectsDataSlice.actions;
 
 export const selectsDataReducer = selectsDataSlice.reducer;

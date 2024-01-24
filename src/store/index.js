@@ -4,12 +4,12 @@ import thunk from 'redux-thunk';
 
 import { scheduleReducer } from './scheduleSlice';
 import { weekDataReducer } from './weekDataSlice';
-import {selectsDataReducer} from './selectsData';
+import { selectsDataReducer } from './selectsData';
 
 const rootReducer = combineReducers({
   schedule: scheduleReducer,
   weekData: weekDataReducer,
-  selectsData:selectsDataReducer,
+  selectsData: selectsDataReducer,
 });
 
 export const store = configureStore({

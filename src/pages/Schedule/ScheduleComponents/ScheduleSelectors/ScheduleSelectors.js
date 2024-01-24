@@ -9,7 +9,7 @@ import {
   setWeekNumber
 } from '../../../../store/weekDataSlice';
 
-import {matchDayOfWeek2} from '../../../../assets/utils/functions';
+import { matchDayOfWeek2 } from '../../../../assets/utils/functions';
 
 import './style.css';
 
@@ -79,7 +79,7 @@ export const ScheduleSelectors = () => {
     setIsCheckedDenominator(true);
     dispatch(setWeekName(false));
   }
-  
+
   return (
     <div className="schedule-selectors-container">
       <CustomSelect

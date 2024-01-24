@@ -1,6 +1,5 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-
 
 export const fetchWeekDay = createAsyncThunk(
   'weekData/fetchWeekDay',
@@ -17,7 +16,6 @@ export const fetchWeekDay = createAsyncThunk(
     }
   }
 );
-
 
 export const fetchWeekNumber = createAsyncThunk(
   'weekData/fetchWeekNumber',
@@ -123,7 +121,6 @@ export const {
   setWeekDay,
   setWeekNumber,
   setWeekName,
-  clearWeekData
 } = weekDataSlice.actions;
 
 export const weekDataReducer = weekDataSlice.reducer;

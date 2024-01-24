@@ -4,7 +4,6 @@ import { Outlet } from 'react-router-dom';
 import Select from 'react-select';
 
 import { Header } from './components/Header';
-import { Footer } from './components/Footer';
 
 import {
   clearGroup,
