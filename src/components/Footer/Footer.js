@@ -7,7 +7,7 @@ export const Footer = () => {
   return (
     <footer className="footer">
       <div>
-        Copyright © 2022 | Все права защищены, Поддержка веб-сервиса
+        Copyright © 2024 | Все права защищены, Поддержка веб-сервиса
         <Link to="https://cit.vstu.by/" className="footer-link">
           cit.vstu.by
         </Link>
