@@ -3,6 +3,13 @@ import Select from 'react-select';
 
 import './style.css';
 
+const customStyles = {
+  menu: (provided) => ({
+    ...provided,
+    zIndex: 9999,
+  }),
+};
+
 export const CustomSelect = ({ options, placeholder, value, onChange, isDisabled, label }) => {
   return (
     <span className="custom-select-container">
@@ -11,6 +18,7 @@ export const CustomSelect = ({ options, placeholder, value, onChange, isDisabled
         id="custom-select"
         options={options}
         className="table-selectors"
+        styles={customStyles}
         placeholder={placeholder}
         value={value}
         onChange={onChange}

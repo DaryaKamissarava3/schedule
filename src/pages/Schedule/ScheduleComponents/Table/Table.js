@@ -32,7 +32,6 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
   }, [currentWeekDay, currentWeekNumber, currentWeekName, scheduleData]);
 
   const filterSchedule = (day, week, name, scheduleArray) => {
-    console.log(scheduleArray);
     return scheduleArray.filter(item => {
       if (week === 'все') {
         return (item.lessonDay === day);
