@@ -88,3 +88,13 @@
     height: 20px;
   }
 }
+
+@media screen  and ( max-width: 420px) {
+  .checkbox-label_1 {
+    left: 25%;
+  }
+
+  .checkbox-label_2 {
+    left: 50%;
+  }
+}

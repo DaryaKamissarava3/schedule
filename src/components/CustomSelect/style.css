@@ -43,3 +43,10 @@
     width: 400px;
   }
 }
+
+@media screen  and ( max-width: 420px) {
+  .table-selectors {
+    margin-right: 0;
+    width: 320px;
+  }
+}
