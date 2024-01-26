@@ -5,7 +5,7 @@ export const fetchStudentsGroups = createAsyncThunk(
   `selectsData/fetchStudentsSchedule`,
   async (_, {rejectWithValue}) => {
     try {
-      const response = await axios.get(`https://student.vstu.by/api/group/all`);
+      const response = await axios.get(`https://student.vstu.by/api/group/all/daytime`);
 
       if (response.status !== 200) {
         throw new Error('Server error!')

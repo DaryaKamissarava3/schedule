@@ -2,7 +2,6 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { ErrorMessage } from '../../../components/Error/ErrorMessage';
-import { Footer } from '../../../components/Footer';
 import { Spinner } from '../../../components/Spinner';
 import { TeacherTable } from '../ScheduleComponents/TeacherTable';
 
@@ -18,7 +17,6 @@ export const TeacherSchedule = () => {
       {teacherScheduleStatus !== 'loading' && !teacherScheduleError && (
         <>
           <TeacherTable scheduleData={teacherScheduleData} />
-          <Footer />
         </>
       )}
     </>

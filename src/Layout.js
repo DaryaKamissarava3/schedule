@@ -15,6 +15,7 @@ import {
 } from './store/selectsData';
 import { fetchStudentsSchedule, fetchTeacherSchedule } from './store/scheduleSlice';
 import { fetchWeekDay, fetchWeekName, fetchWeekNumber } from './store/weekDataSlice';
+import {Footer} from "./components/Footer";
 
 const Layout = ({children}) => {
   const [selectedTeacher, setSelectedTeacher] = useState(null);
@@ -80,6 +81,7 @@ const Layout = ({children}) => {
         {children}
         <Outlet />
       </main>
+      <Footer />
     </div>
   );
 };

@@ -2,7 +2,6 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { ErrorMessage } from '../../../components/Error/ErrorMessage';
-import { Footer } from '../../../components/Footer';
 import { ScheduleSelectors } from '../ScheduleComponents/ScheduleSelectors';
 import { Spinner } from '../../../components/Spinner';
 import { Table } from '../ScheduleComponents/Table';
@@ -22,7 +21,6 @@ export const StudentsSchedule = () => {
             <ScheduleSelectors />
           </div>
           <Table scheduleData={studentsScheduleData} isTeacherSchedule={false}/>
-          <Footer />
         </>
       )}
     </>
