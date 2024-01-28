@@ -20,6 +20,7 @@ const dayOptions = [
   {value: 'THURSDAY', label: 'Четверг'},
   {value: 'FRIDAY', label: 'Пятница'},
   {value: 'SATURDAY', label: 'Суббота'},
+  {value: 'SUNDAY', label: 'Воскресенье'},
 ];
 
 const weekNumberOptions = [

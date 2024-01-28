@@ -25,4 +25,5 @@ export const russianToEnglishWeekdays = [
   {dayInRussian: 'Четверг', dayInEnglish: 'THURSDAY'},
   {dayInRussian: 'Пятница', dayInEnglish: 'FRIDAY'},
   {dayInRussian: 'Суббота', dayInEnglish: 'SATURDAY'},
+  {dayInRussian: 'Воскресенье', dayInEnglish: 'SUNDAY'},
 ];
