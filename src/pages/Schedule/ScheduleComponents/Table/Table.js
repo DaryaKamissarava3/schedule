@@ -40,7 +40,7 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
           item.lessonDay === day &&
           (item.weekNumber === null || item.weekNumber === week) &&
           (item.numerator === null ||
-            (name === true ? item.numerator === true : item.numerator === false))
+            (name === true ? item.numerator === false : item.numerator === true))
         );
       }
     }).slice().sort((a, b) => a.lessonNumber - b.lessonNumber);

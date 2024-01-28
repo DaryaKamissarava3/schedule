@@ -46,11 +46,11 @@ export const ScheduleSelectors = () => {
 
   useEffect(() => {
     if (currentWeekName === true) {
-      setIsCheckedNumerator(true);
-      setIsCheckedDenominator(false);
-    } else {
       setIsCheckedNumerator(false);
       setIsCheckedDenominator(true);
+    } else {
+      setIsCheckedNumerator(true);
+      setIsCheckedDenominator(false);
     }
   }, [currentWeekName]);
 
@@ -72,13 +72,13 @@ export const ScheduleSelectors = () => {
   const handleCheckboxNumerator = () => {
     setIsCheckedNumerator(true);
     setIsCheckedDenominator(false);
-    dispatch(setWeekName(true));
+    dispatch(setWeekName(false));
   }
 
   const handleCheckboxDenominator = () => {
     setIsCheckedNumerator(false);
     setIsCheckedDenominator(true);
-    dispatch(setWeekName(false));
+    dispatch(setWeekName(true));
   }
 
   return (
