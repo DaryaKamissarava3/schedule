@@ -180,7 +180,12 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
                       <span className="card-text-key">
                         <b>Числитель/Знаменатель:</b>
                       </span>
-                      {matchWeekName(currentWeekName)}
+                      {item.numerator === false
+                        ? 'знаменатель'
+                        : item.numerator === null
+                          ? 'Всегда'
+                          : 'числитель'
+                      }
                     </div>
                   </div>
                 </div>
