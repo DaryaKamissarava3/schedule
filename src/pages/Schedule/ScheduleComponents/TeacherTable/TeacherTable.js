@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {Link} from 'react-router-dom';
 
-import { clearTeacherFio, setGroup } from '../../../../store/selectsData';
-import { fetchStudentsSchedule } from '../../../../store/scheduleSlice';
+import {clearTeacherFio, setGroup} from '../../../../store/selectsData';
+import {fetchStudentsSchedule} from '../../../../store/scheduleSlice';
 
 import {
   generateClassName,
@@ -25,14 +25,11 @@ export const TeacherTable = ({scheduleData}) => {
 
   const dispatch = useDispatch();
 
-  const currentWeekNumber = useSelector((state) => state.weekData.weekNumber);
-  const currentWeekName = useSelector((state) => state.weekData.weekName);
   const teacherName = useSelector((state) => state.selectsData.teacher);
 
   useEffect(() => {
     const data = filterAndSortSchedule(scheduleData);
-    const data2 = mergeObjectsWithSameValues(data);
-    setFilteredSchedule(data2)
+    setFilteredSchedule(data)
   }, [scheduleData]);
 
   const filterAndSortSchedule = (schedule) => {
@@ -204,7 +201,16 @@ export const TeacherTable = ({scheduleData}) => {
                       <span className="card-text-key">
                         <b>Неделя:</b>
                       </span>
-                      {currentWeekNumber}
+                      {item.weekNumber === 1
+                        ? '1'
+                        : item.weekNumber === 2
+                          ? '2'
+                          : item.weekNumber === 3
+                            ? '3'
+                            : item.weekNumber === 4
+                              ? '4'
+                              : 'Всегда'
+                      }
                     </div>
                     <div className="card-text">
                       <span className="card-text-key">

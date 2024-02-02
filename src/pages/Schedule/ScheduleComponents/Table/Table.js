@@ -94,11 +94,15 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
                   <td className="table-body_row_item">Вся группа</td>
                 )}
                 <td className="table-body_row_item">
-                  {tableItem.numerator === false
-                    ? 'знаменатель'
-                    : tableItem.numerator === null
-                      ? 'Всегда'
-                      : 'числитель'
+                  {tableItem.weekNumber === 1
+                    ? '1'
+                    : tableItem.weekNumber === 2
+                      ? '2'
+                      : tableItem.weekNumber === 3
+                        ? '3'
+                        : tableItem.weekNumber === 4
+                          ? '4'
+                          : 'Всегда'
                   }
                 </td>
                 <td className="table-body_row_item">{tableItem.frame}-{tableItem.location}</td>
@@ -174,7 +178,16 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
                       <span className="card-text-key">
                         <b>Неделя:</b>
                       </span>
-                      {currentWeekNumber}
+                      {item.weekNumber === 1
+                        ? '1'
+                        : item.weekNumber === 2
+                          ? '2'
+                          : item.weekNumber === 3
+                            ? '3'
+                            : item.weekNumber === 4
+                              ? '4'
+                              : 'Всегда'
+                      }
                     </div>
                     <div className="card-text">
                       <span className="card-text-key">
