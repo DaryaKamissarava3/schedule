@@ -29,7 +29,7 @@ export const TeacherTable = ({scheduleData}) => {
 
   useEffect(() => {
     const data = filterAndSortSchedule(scheduleData);
-    setFilteredSchedule(data)
+    setFilteredSchedule(data);
   }, [scheduleData]);
 
   const filterAndSortSchedule = (schedule) => {
@@ -51,28 +51,6 @@ export const TeacherTable = ({scheduleData}) => {
         }
         return dayOrder[a.lessonDay] - dayOrder[b.lessonDay];
       });
-  };
-
-  const mergeObjectsWithSameValues = (schedule) => {
-    const mergedSchedule = [];
-    schedule.forEach((item) => {
-      const existingItem = mergedSchedule.find((mergedItem) => (
-        mergedItem.lessonDay === item.lessonDay &&
-        mergedItem.lessonNumber === item.lessonNumber &&
-        mergedItem.lessonTime === item.lessonTime &&
-        mergedItem.typeClassName === item.typeClassName &&
-        mergedItem.disciplineName === item.disciplineName &&
-        mergedItem.groupName === item.groupName
-      ));
-
-      if (existingItem) {
-        existingItem.location += `, ${item.location}`;
-      } else {
-        mergedSchedule.push({...item});
-      }
-    });
-
-    return mergedSchedule;
   };
 
   const handleGroupScheduleNavigate = (groupName) => {

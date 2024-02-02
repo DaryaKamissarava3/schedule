@@ -28,7 +28,9 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
   const [filteredSchedule, setFilteredSchedule] = useState([]);
 
   useEffect(() => {
-    setFilteredSchedule(filterSchedule(currentWeekDay, currentWeekNumber, currentWeekName, scheduleData));
+    const data = filterSchedule(currentWeekDay, currentWeekNumber, currentWeekName, scheduleData);
+    const data2= mergeObjectsWithSameValues(data);
+    setFilteredSchedule(data2);
   }, [currentWeekDay, currentWeekNumber, currentWeekName, scheduleData]);
 
   const filterSchedule = (day, week, name, scheduleArray) => {
@@ -44,6 +46,28 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
         );
       }
     }).slice().sort((a, b) => a.lessonNumber - b.lessonNumber);
+  };
+
+  const mergeObjectsWithSameValues = (schedule) => {
+    const mergedSchedule = [];
+    schedule.forEach((item) => {
+      const existingItem = mergedSchedule.find((mergedItem) => (
+        mergedItem.lessonDay === item.lessonDay &&
+        mergedItem.lessonNumber === item.lessonNumber &&
+        mergedItem.lessonTime === item.lessonTime &&
+        mergedItem.typeClassName === item.typeClassName &&
+        mergedItem.disciplineName === item.disciplineName &&
+        mergedItem.groupName === item.groupName
+      ));
+
+      if (existingItem) {
+        existingItem.location += `, ${item.location}`;
+      } else {
+        mergedSchedule.push({...item});
+      }
+    });
+
+    return mergedSchedule;
   };
 
   const handleTeacherScheduleNavigate = (teacherFio) => {
