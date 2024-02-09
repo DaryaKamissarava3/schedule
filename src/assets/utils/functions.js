@@ -2,12 +2,23 @@ import {lessonAbbreviations, lessonTime, russianToEnglishWeekdays} from "./array
 
 
 export const shortenName = (fullName) => {
-  const splitName = fullName.split(' ');
-  const lastName = splitName[0];
-  const firstName = splitName[1].charAt(0);
-  const fatherName = splitName[2].charAt(0);
-
-  return `${lastName} ${firstName}.${fatherName}.`
+  if (fullName.includes(',')) {
+    const splitNames = fullName.split(',');
+    const shortenedNames = splitNames.map(nameSegment => {
+      const splitName = nameSegment.trim().split(' ');
+      const lastName = splitName[0];
+      const firstName = splitName[1].charAt(0);
+      const fatherName = splitName[2].charAt(0);
+      return `${lastName} ${firstName}.${fatherName}.`;
+    });
+    return shortenedNames.join(', ');
+  } else {
+    const splitName = fullName.trim().split(' ');
+    const lastName = splitName[0];
+    const firstName = splitName[1].charAt(0);
+    const fatherName = splitName[2].charAt(0);
+    return `${lastName} ${firstName}.${fatherName}.`;
+  }
 };
 
 export const generateClassName = (typeClassName) => {

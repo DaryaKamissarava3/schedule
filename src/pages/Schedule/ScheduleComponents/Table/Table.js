@@ -62,6 +62,7 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
 
       if (existingItem) {
         existingItem.location += `, ${item.location}`;
+        existingItem.teacherFio += `, ${item.teacherFio}`;
       } else {
         mergedSchedule.push({...item});
       }
@@ -127,6 +128,14 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
                         : tableItem.weekNumber === 4
                           ? '4'
                           : 'Всегда'
+                  }
+                </td>
+                <td className="table-body_row_item">
+                  {tableItem.numerator === false
+                    ? 'Знаменатель'
+                    : tableItem.numerator === null
+                      ? 'Всегда'
+                      : 'Числитель'
                   }
                 </td>
                 <td className="table-body_row_item">{tableItem.frame}-{tableItem.location}</td>
