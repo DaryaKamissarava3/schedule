@@ -9,6 +9,7 @@ import './style.css';
 export const Main = () => {
   const selectedTeacher = useSelector((state) => state.selectsData.teacher);
   const selectedGroup = useSelector((state) => state.selectsData.group);
+  const selectedCorrespondenceGroup=useSelector((state)=>state.selectsData.correspondenceGroup);
 
   return (
     <>
@@ -18,6 +19,11 @@ export const Main = () => {
         </>
       )}
       {selectedGroup && (
+        <>
+          <StudentsSchedule />
+        </>
+      )}
+      {selectedCorrespondenceGroup && (
         <>
           <StudentsSchedule />
         </>

@@ -9,7 +9,6 @@ import {
   generateClassName,
   matchLessonTime,
   matchLessonTypeAbbreviation,
-  matchWeekName
 } from '../../../../assets/utils/functions';
 
 import {
@@ -26,10 +25,7 @@ export const TeacherTable = ({scheduleData}) => {
   const dispatch = useDispatch();
 
   const teacherName = useSelector((state) => state.selectsData.teacher);
-  const currentWeekDay = useSelector((state) => state.weekData.weekDay);
-  const currentWeekNumber = useSelector((state) => state.weekData.weekNumber);
-  const currentWeekName = useSelector((state) => state.weekData.weekName);
-  // console.log(currentWeekName)
+
   useEffect(() => {
     const data = filterAndSortSchedule(scheduleData);
     setFilteredSchedule(data);

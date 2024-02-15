@@ -49,7 +49,7 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
          )}
        </td>
      } else {
-       return <td>
+       return <td className="table-body_row_item teacher_cell">
          <Link
            to={`/schedule/teacher/${teacherNames}`}
            className="teacher_link"
