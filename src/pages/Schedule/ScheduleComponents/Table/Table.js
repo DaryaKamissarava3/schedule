@@ -40,9 +40,9 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
          {splitNames.map((item,index)=>
            <Link
              key={index}
-             to={`/schedule/teacher/${item}`}
+             to={`/schedule/teacher/${item.trim()}`}
              className="teacher_link"
-             onClick={() => handleTeacherScheduleNavigate(item)}
+             onClick={() => handleTeacherScheduleNavigate(item.trim())}
            >
              {shortenName(item)}
            </Link>
