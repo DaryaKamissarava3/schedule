@@ -10,7 +10,6 @@ import {
   matchDayOfWeek2,
   matchLessonTime,
   matchLessonTypeAbbreviation,
-  matchWeekName,
   shortenName
 } from '../../../../assets/utils/functions';
 import noLessons from '../../../../assets/images/no-lessons.svg';
@@ -30,8 +29,37 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
   useEffect(() => {
     const data = filterSchedule(currentWeekDay, currentWeekNumber, currentWeekName, scheduleData);
     const data2= mergeObjectsWithSameValues(data);
+
     setFilteredSchedule(data2);
   }, [currentWeekDay, currentWeekNumber, currentWeekName, scheduleData]);
+
+   const generateTeacherLinks = (teacherNames) => {
+     if (teacherNames.includes(',')) {
+       const splitNames = teacherNames.split(',');
+       return<td className="table-body_row_item teacher_cell">
+         {splitNames.map((item,index)=>
+           <Link
+             key={index}
+             to={`/schedule/teacher/${item}`}
+             className="teacher_link"
+             onClick={() => handleTeacherScheduleNavigate(item)}
+           >
+             {shortenName(item)}
+           </Link>
+         )}
+       </td>
+     } else {
+       return <td>
+         <Link
+           to={`/schedule/teacher/${teacherNames}`}
+           className="teacher_link"
+           onClick={() => handleTeacherScheduleNavigate(teacherNames)}
+         >
+           {shortenName(teacherNames)}
+         </Link>
+       </td>
+     }
+   };
 
   const filterSchedule = (day, week, name, scheduleArray) => {
     return scheduleArray.filter(item => {
@@ -144,15 +172,7 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
                     {tableItem.groupName}
                   </td>
                   :
-                  <td className="table-body_row_item teacher_cell">
-                    <Link
-                      to={`/schedule/teacher/${tableItem.teacherFio}`}
-                      className="teacher_link"
-                      onClick={() => handleTeacherScheduleNavigate(tableItem.teacherFio)}
-                    >
-                      {shortenName(tableItem.teacherFio)}
-                    </Link>
-                  </td>
+                  generateTeacherLinks(tableItem.teacherFio)
                 }
               </tr>
             ))

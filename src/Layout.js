@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom';
 import Select from 'react-select';
 
 import { Header } from './components/Header';
+import { Footer } from './components/Footer';
 
 import {
   clearGroup,
@@ -15,7 +16,6 @@ import {
 } from './store/selectsData';
 import { fetchStudentsSchedule, fetchTeacherSchedule } from './store/scheduleSlice';
 import { fetchWeekDay, fetchWeekName, fetchWeekNumber } from './store/weekDataSlice';
-import {Footer} from "./components/Footer";
 
 const Layout = ({children}) => {
   const [selectedTeacher, setSelectedTeacher] = useState(null);
@@ -49,6 +49,21 @@ const Layout = ({children}) => {
     dispatch(fetchStudentsSchedule(selectedOption.value));
     dispatch(clearTeacherFio());
   };
+
+  const sortTeachersFio = (teachersData) => {
+    return teachersData.map((teacher) => ({
+      value: teacher.fio,
+      label: teacher.fio,
+    })).sort((a, b) => a.label.localeCompare(b.label));
+  };
+
+  const sortGroupsName = (groupsData) => {
+    return groupsData.map((group) => ({
+      value: group.name,
+      label: group.name,
+    })).sort((a, b) => a.label.localeCompare(b.label));
+  };
+
   return (
     <div className="container">
       <Header/>
@@ -58,7 +73,7 @@ const Layout = ({children}) => {
           <Select
             id="teacherSelect"
             className="teacher-select"
-            options={teachersData.map((teacher) => ({value: teacher.fio, label: teacher.fio}))}
+            options={sortTeachersFio(teachersData)}
             value={selectedTeacher}
             onChange={handleTeacherChange}
             placeholder="Выберите ФИО преподавателя"
@@ -69,7 +84,7 @@ const Layout = ({children}) => {
           <Select
             id="groupSelect"
             className="group-select"
-            options={groupsData.map((group) => ({value: group.name, label: group.name}))}
+            options={sortGroupsName(groupsData)}
             value={selectedGroup}
             onChange={handleGroupChange}
             placeholder="Выберите группу"
@@ -79,9 +94,9 @@ const Layout = ({children}) => {
       <span className="line-break"></span>
       <main className="layout-children">
         {children}
-        <Outlet />
+        <Outlet/>
       </main>
-      <Footer />
+      <Footer/>
     </div>
   );
 };

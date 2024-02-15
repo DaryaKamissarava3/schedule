@@ -26,7 +26,10 @@ export const TeacherTable = ({scheduleData}) => {
   const dispatch = useDispatch();
 
   const teacherName = useSelector((state) => state.selectsData.teacher);
-
+  const currentWeekDay = useSelector((state) => state.weekData.weekDay);
+  const currentWeekNumber = useSelector((state) => state.weekData.weekNumber);
+  const currentWeekName = useSelector((state) => state.weekData.weekName);
+  // console.log(currentWeekName)
   useEffect(() => {
     const data = filterAndSortSchedule(scheduleData);
     setFilteredSchedule(data);
@@ -132,6 +135,17 @@ export const TeacherTable = ({scheduleData}) => {
         </table>
       </div>
       <div className="schedule-table_mobile">
+        {/*<div>*/}
+        {/*  <span className="card-text-key">*/}
+        {/*      <b>Числитель/Знаменатель:</b>*/}
+        {/*  </span>*/}
+        {/*  {currentWeekName === true*/}
+        {/*    ? 'знаменатель'*/}
+        {/*    : currentWeekName === null*/}
+        {/*      ? 'Всегда'*/}
+        {/*      : 'числитель'*/}
+        {/*  }*/}
+        {/*</div>*/}
         <div className="mobile-table-container">
           {filteredSchedule.length === 0 ? (
             <div className="mobile-table-block">
