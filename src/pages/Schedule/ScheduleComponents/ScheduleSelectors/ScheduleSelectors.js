@@ -21,6 +21,7 @@ const dayOptions = [
   {value: 'FRIDAY', label: 'Пятница'},
   {value: 'SATURDAY', label: 'Суббота'},
   {value: 'SUNDAY', label: 'Воскресенье'},
+  {value: 'ALL', label: 'Все дни'},
 ];
 
 const weekNumberOptions = [
@@ -31,7 +32,7 @@ const weekNumberOptions = [
   {value: 'все', label: 'все'}
 ];
 
-export const ScheduleSelectors = () => {
+export const ScheduleSelectors = ({isCorrespondenceSchedule}) => {
   const weekDay = useSelector((state) => state.weekData.weekDay);
   const currentWeekNumber = useSelector((state) => state.weekData.weekNumber);
   const currentWeekName = useSelector((state) => state.weekData.weekName);
@@ -45,6 +46,11 @@ export const ScheduleSelectors = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (isCorrespondenceSchedule === true) { //для заочников. сначала выводим на всю неделю расписание
+      setCurrentWeekDay('Все дни');
+      dispatch(setWeekDay('ALL'));
+    }
+
     if (currentWeekName === true) {
       setIsCheckedNumerator(false);
       setIsCheckedDenominator(true);
@@ -94,6 +100,7 @@ export const ScheduleSelectors = () => {
         value={{value: selectedWeekNumber, label: selectedWeekNumber}}
         onChange={handleWeekNumberChange}
         label="Выберите неделю"
+        isDisabled={currentWeekDay === 'Все дни'}
       />
       <div className="checkbox-container">
         <label className="checkbox-label_1">
@@ -104,7 +111,7 @@ export const ScheduleSelectors = () => {
           type="checkbox"
           checked={isCheckedNumerator}
           onChange={handleCheckboxNumerator}
-          disabled={selectedWeekNumber === 'все'}
+          disabled={selectedWeekNumber === 'все' || currentWeekDay === 'Все дни'}
         />
         <label className="checkbox-label_2">
           Знаменатель
@@ -114,7 +121,7 @@ export const ScheduleSelectors = () => {
           type="checkbox"
           checked={isCheckedDenominator}
           onChange={handleCheckboxDenominator}
-          disabled={selectedWeekNumber === 'все'}
+          disabled={selectedWeekNumber === 'все' || currentWeekDay === 'Все дни'}
         />
       </div>
     </div>

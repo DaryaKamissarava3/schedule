@@ -1,55 +1,68 @@
-import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {Link} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import {clearTeacherFio, setGroup} from '../../../../store/selectsData';
-import {fetchStudentsSchedule} from '../../../../store/scheduleSlice';
+import { clearTeacherFio, setGroup } from '../../../../store/selectsData';
+import { fetchStudentsSchedule } from '../../../../store/scheduleSlice';
 
 import {
+  filterSchedule,
   generateClassName,
   matchLessonTime,
   matchLessonTypeAbbreviation,
+  mergeObjectsWithSameValues,
 } from '../../../../assets/utils/functions';
 
 import {
-  russianToEnglishWeekdays,
+  tableHeaderForAllDays,
   tableHeaderForTeacher
 } from '../../../../assets/utils/arrays';
 
 import noLessonsSmall from '../../../../assets/images/no-lesson-small.svg';
 import noLessons from '../../../../assets/images/no-lessons.svg';
 
-export const TeacherTable = ({scheduleData}) => {
+export const TeacherTable = ({ scheduleData }) => {
   const [filteredSchedule, setFilteredSchedule] = useState([]);
+
+  const currentWeekDay = useSelector((state) => state.weekData.weekDay);
+  const currentWeekNumber = useSelector((state) => state.weekData.weekNumber);
+  const currentWeekName = useSelector((state) => state.weekData.weekName);
 
   const dispatch = useDispatch();
 
-  const teacherName = useSelector((state) => state.selectsData.teacher);
-
   useEffect(() => {
-    const data = filterAndSortSchedule(scheduleData);
-    setFilteredSchedule(data);
-  }, [scheduleData]);
+    const data = filterSchedule(currentWeekDay, currentWeekNumber, currentWeekName, scheduleData);
+    const data2 = mergeObjectsWithSameValues(data, false);
 
-  const filterAndSortSchedule = (schedule) => {
-    const dayOrder = {};
-    russianToEnglishWeekdays.forEach((day, index) => {
-      dayOrder[day.dayInRussian] = index + 1;
-    });
+    setFilteredSchedule(data2);
+  }, [currentWeekDay, currentWeekNumber, currentWeekName, scheduleData]);
 
-    return schedule
-      .map(item => ({
-        ...item,
-        lessonDay: russianToEnglishWeekdays.find(day => day.dayInEnglish === item.lessonDay)?.dayInRussian,
-        lessonTime: matchLessonTime(item.lessonNumber)
-      }))
-      .filter(item => item.lessonDay)
-      .sort((a, b) => {
-        if (dayOrder[a.lessonDay] === dayOrder[b.lessonDay]) {
-          return a.lessonNumber - b.lessonNumber;
-        }
-        return dayOrder[a.lessonDay] - dayOrder[b.lessonDay];
-      });
+  const generateGroupsLinks = (groupName) => {
+    if (groupName.includes(',')) {
+      const splitNames = groupName.split(',');
+      return <td className="table-body_row_item teacher_cell">
+        {splitNames.map((item, index) =>
+          <Link
+            key={index}
+            to={`/schedule/group/${item.trim()}`}
+            className="teacher_link"
+            onClick={() => handleGroupScheduleNavigate(item.trim())}
+          >
+            {item}
+          </Link>
+        )}
+      </td>
+    } else {
+      return <td className="table-body_row_item teacher_cell">
+        <Link
+          to={`/schedule/group/${groupName}`}
+          className="teacher_link"
+          onClick={() => handleGroupScheduleNavigate(groupName)}
+        >
+          {groupName}
+        </Link>
+      </td>
+    }
   };
 
   const handleGroupScheduleNavigate = (groupName) => {
@@ -60,16 +73,22 @@ export const TeacherTable = ({scheduleData}) => {
 
   return (
     <>
-      <h3 className="teacher-name-title">{teacherName}</h3>
       <div className="schedule-table-block">
         <table className="schedule-table">
           <thead className="table-header">
           <tr className="table-header_row">
-            {tableHeaderForTeacher.map((name, index) => (
-              <th className="table-header_item" key={index}>
-                {name}
-              </th>
-            ))}
+            {currentWeekDay === 'ALL' ?
+              tableHeaderForAllDays.map((name, index) => (
+                <th className="table-header_item" key={index}>
+                  {name}
+                </th>
+              ))
+              : tableHeaderForTeacher.map((name, index) => (
+                <th className="table-header_item" key={index}>
+                  {name}
+                </th>
+              ))
+            }
           </tr>
           </thead>
           <tbody>
@@ -85,7 +104,9 @@ export const TeacherTable = ({scheduleData}) => {
                 <td className={`table-body_row_item lesson_number ${generateClassName(tableItem.typeClassName)}`}>
                   {tableItem.lessonNumber}
                 </td>
-                <td className="table-body_row_item">{tableItem.lessonDay}</td>
+                {
+                  currentWeekDay === 'ALL' ? <td className="table-body_row_item">{tableItem.lessonDay}</td> : ''
+                }
                 <td className="table-body_row_item">{matchLessonTime(tableItem.lessonNumber)}</td>
                 <td className="table-body_row_item">{matchLessonTypeAbbreviation(tableItem.typeClassName)}</td>
                 <td className="table-body_row_item">{tableItem.disciplineName}</td>
@@ -94,14 +115,6 @@ export const TeacherTable = ({scheduleData}) => {
                 ) : (
                   <td className="table-body_row_item">Вся группа</td>
                 )}
-                <td className="table-body_row_item">
-                  {tableItem.numerator === false
-                    ? 'Знаменатель'
-                    : tableItem.numerator === null
-                      ? 'Всегда'
-                      : 'Числитель'
-                  }
-                </td>
                 <td className="table-body_row_item">
                   {tableItem.weekNumber === 1
                     ? '1'
@@ -114,16 +127,16 @@ export const TeacherTable = ({scheduleData}) => {
                           : 'Всегда'
                   }
                 </td>
-                <td className="table-body_row_item">{tableItem.frame}-{tableItem.location}</td>
                 <td className="table-body_row_item">
-                  <Link
-                    to={`/schedule/group/${tableItem.groupName}`}
-                    className="teacher_link"
-                    onClick={() => handleGroupScheduleNavigate(tableItem.groupName)}
-                  >
-                    {tableItem.groupName}
-                  </Link>
+                  {tableItem.numerator === false
+                    ? 'Знаменатель'
+                    : tableItem.numerator === null
+                      ? 'Всегда'
+                      : 'Числитель'
+                  }
                 </td>
+                <td className="table-body_row_item">{tableItem.frame}-{tableItem.location}</td>
+                {generateGroupsLinks(tableItem.groupName)}
               </tr>
             ))
           )}
@@ -131,17 +144,6 @@ export const TeacherTable = ({scheduleData}) => {
         </table>
       </div>
       <div className="schedule-table_mobile">
-        {/*<div>*/}
-        {/*  <span className="card-text-key">*/}
-        {/*      <b>Числитель/Знаменатель:</b>*/}
-        {/*  </span>*/}
-        {/*  {currentWeekName === true*/}
-        {/*    ? 'знаменатель'*/}
-        {/*    : currentWeekName === null*/}
-        {/*      ? 'Всегда'*/}
-        {/*      : 'числитель'*/}
-        {/*  }*/}
-        {/*</div>*/}
         <div className="mobile-table-container">
           {filteredSchedule.length === 0 ? (
             <div className="mobile-table-block">
@@ -168,12 +170,17 @@ export const TeacherTable = ({scheduleData}) => {
                       <span className="card-text-key">
                         <b>Группа:</b>
                       </span>
-                      <Link
-                        to={`/schedule/group/${item.groupName}`}
-                        onClick={() => handleGroupScheduleNavigate(item.groupName)}
-                      >
-                        {item.groupName}
-                      </Link>
+                      {item.groupName.split(',').map((group, index) => (
+                        <span key={index} className="mobile-group-span">
+                        <Link
+                          to={`/schedule/group/${group.trim()}`}
+                          onClick={() => handleGroupScheduleNavigate(group.trim())}
+                        >
+                          {group}
+                        </Link>
+                          {index !== item.groupName.split(',').length - 1 && ', '}
+                      </span>
+                      ))}
                     </div>
                     <div className="card-text"><span className="card-text-key"><b>Подгруппа:</b></span>
                       {item.subGroup === 1 || item.subGroup === 2 ? (

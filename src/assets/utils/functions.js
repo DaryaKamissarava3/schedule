@@ -1,12 +1,100 @@
-import {lessonAbbreviations, lessonTime, russianToEnglishWeekdays} from "./arrays";
+import { lessonAbbreviations, lessonTime, russianToEnglishWeekdays } from './arrays';
 
+export const filterSchedule = (day, week, name, scheduleArray) => {
+  if (day === 'ALL') {
+    const dayOrder = {};
+    russianToEnglishWeekdays.forEach((day, index) => {
+      dayOrder[day.dayInRussian] = index + 1;
+    });
+
+    return scheduleArray
+      .map(item => ({
+        ...item,
+        lessonDay: russianToEnglishWeekdays.find(day => day.dayInEnglish === item.lessonDay)?.dayInRussian,
+        lessonTime: matchLessonTime(item.lessonNumber)
+      }))
+      .filter(item => item.lessonDay)
+      .sort((a, b) => {
+        if (dayOrder[a.lessonDay] === dayOrder[b.lessonDay]) {
+          return a.lessonNumber - b.lessonNumber;
+        }
+        return dayOrder[a.lessonDay] - dayOrder[b.lessonDay];
+      });
+  } else {
+    return scheduleArray.filter(item => {
+      if (week === 'все') {
+        return (item.lessonDay === day);
+      } else {
+        return (
+          item.lessonDay === day &&
+          (item.weekNumber === null || item.weekNumber === week) &&
+          (item.numerator === null ||
+            (name === true ? item.numerator === false : item.numerator === true))
+        );
+      }
+    }).slice().sort((a, b) => a.lessonNumber - b.lessonNumber);
+  }
+};
+
+export const mergeObjectsWithSameValues = (schedule, studentSchedule) => {//обьединение обьектов с одинаковыми полями(разные аудитории и преподаватели)
+  const mergedSchedule = [];
+  if (studentSchedule) {
+    schedule.forEach((item) => {
+      const existingItem = mergedSchedule.find((mergedItem) => (
+        mergedItem.lessonDay === item.lessonDay &&
+        mergedItem.lessonNumber === item.lessonNumber &&
+        mergedItem.lessonTime === item.lessonTime &&
+        mergedItem.typeClassName === item.typeClassName &&
+        mergedItem.disciplineName === item.disciplineName &&
+        mergedItem.groupName === item.groupName
+      ));
+
+      if (existingItem) {
+        const locations = existingItem.location.split(', ');
+        if (!locations.includes(item.location)) {
+          existingItem.location += `, ${item.location}`;
+        }
+
+        const teachers = existingItem.teacherFio.split(', ');
+        if (!teachers.includes(item.teacherFio)) {
+          existingItem.teacherFio += `, ${item.teacherFio}`;
+        }
+      } else {
+        mergedSchedule.push({...item});
+      }
+    });
+  } else {
+    schedule.forEach((item) => {
+      const existingItem = mergedSchedule.find((mergedItem) => (
+        mergedItem.lessonDay === item.lessonDay &&
+        mergedItem.lessonNumber === item.lessonNumber &&
+        mergedItem.lessonTime === item.lessonTime &&
+        mergedItem.typeClassName === item.typeClassName &&
+        mergedItem.disciplineName === item.disciplineName &&
+        mergedItem.frame === item.frame &&
+        mergedItem.location === item.location
+      ));
+
+      if (existingItem) {
+        const groups = existingItem.groupName.split(', ');
+        if (!groups.includes(item.groupName)) {
+          existingItem.groupName += `, ${item.groupName}`;
+        }
+      } else {
+        mergedSchedule.push({...item});
+      }
+    });
+  }
+
+  return mergedSchedule;
+};
 
 export const shortenName = (fullName) => {
-    const splitName = fullName.trim().split(' ');
-    const lastName = splitName[0];
-    const firstName = splitName[1].charAt(0);
-    const fatherName = splitName[2].charAt(0);
-    return `${lastName} ${firstName}.${fatherName}.`;
+  const splitName = fullName.trim().split(' ');
+  const lastName = splitName[0];
+  const firstName = splitName[1].charAt(0);
+  const fatherName = splitName[2].charAt(0);
+  return `${lastName} ${firstName}.${fatherName}.`;
 };
 
 export const generateClassName = (typeClassName) => {
@@ -27,7 +115,7 @@ export const matchDayOfWeek = (lessonDay) => {
 
 export const matchDayOfWeek2 = (lessonDay) => {
   const match = russianToEnglishWeekdays.find((item) => item.dayInEnglish === lessonDay);
-  return match ? match.dayInRussian : '';
+  return match ? match.dayInRussian : 'Все дни';
 }
 
 export const matchLessonTypeAbbreviation = (typeClassName) => {

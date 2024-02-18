@@ -1,24 +1,26 @@
-import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {Outlet} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Outlet } from 'react-router-dom';
 import Select from 'react-select';
 
-import {Header} from './components/Header';
-import {Footer} from './components/Footer';
+import { Header } from './components/Header';
+import { Footer } from './components/Footer';
 
 import {
   clearCorrespondenceGroup,
   clearGroup,
-  clearTeacherFio, fetchCorrespondenceStudentsGroups,
+  clearTeacherFio,
+  fetchCorrespondenceStudentsGroups,
   fetchStudentsGroups,
-  fetchTeachersFio, setCorrespondenceGroup,
+  fetchTeachersFio,
+  setCorrespondenceGroup,
   setGroup,
   setTeacherFio
 } from './store/selectsData';
-import {fetchStudentsSchedule, fetchTeacherSchedule} from './store/scheduleSlice';
-import {fetchWeekDay, fetchWeekName, fetchWeekNumber} from './store/weekDataSlice';
+import { fetchStudentsSchedule, fetchTeacherSchedule } from './store/scheduleSlice';
+import { fetchWeekDay, fetchWeekName, fetchWeekNumber } from './store/weekDataSlice';
 
-const Layout = ({children}) => {
+const Layout = ({ children }) => {
   const [selectedTeacher, setSelectedTeacher] = useState(null);
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [selectedCorrespondenceGroup, setSelectedCorrespondenceGroup] = useState(null);

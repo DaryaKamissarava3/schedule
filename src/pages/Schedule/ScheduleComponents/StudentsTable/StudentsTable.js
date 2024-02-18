@@ -3,13 +3,18 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchTeacherSchedule } from '../../../../store/scheduleSlice';
-import { clearGroup, setTeacherFio } from '../../../../store/selectsData';
-import { tableHeaderForStudents, tableHeaderForTeacher } from '../../../../assets/utils/arrays';
+import { clearCorrespondenceGroup, clearGroup, setTeacherFio } from '../../../../store/selectsData';
 import {
-  generateClassName,
+  tableHeaderForAllDays,
+  tableHeaderForStudents,
+} from '../../../../assets/utils/arrays';
+import {
+  filterSchedule,
+  generateClassName, matchDayOfWeek,
   matchDayOfWeek2,
   matchLessonTime,
   matchLessonTypeAbbreviation,
+  mergeObjectsWithSameValues,
   shortenName
 } from '../../../../assets/utils/functions';
 import noLessons from '../../../../assets/images/no-lessons.svg';
@@ -17,7 +22,7 @@ import noLessonsSmall from '../../../../assets/images/no-lesson-small.svg';
 
 import './style.css';
 
-export const Table = ({scheduleData, isTeacherSchedule}) => {
+export const StudentsTable = ({scheduleData, isCorrespondenceSchedule}) => {
   const currentWeekDay = useSelector((state) => state.weekData.weekDay);
   const currentWeekNumber = useSelector((state) => state.weekData.weekNumber);
   const currentWeekName = useSelector((state) => state.weekData.weekName);
@@ -28,81 +33,44 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
 
   useEffect(() => {
     const data = filterSchedule(currentWeekDay, currentWeekNumber, currentWeekName, scheduleData);
-    const data2= mergeObjectsWithSameValues(data);
+    const data2 = mergeObjectsWithSameValues(data, true);
 
     setFilteredSchedule(data2);
   }, [currentWeekDay, currentWeekNumber, currentWeekName, scheduleData]);
 
-   const generateTeacherLinks = (teacherNames) => {
-     if (teacherNames.includes(',')) {
-       const splitNames = teacherNames.split(',');
-       return<td className="table-body_row_item teacher_cell">
-         {splitNames.map((item,index)=>
-           <Link
-             key={index}
-             to={`/schedule/teacher/${item.trim()}`}
-             className="teacher_link"
-             onClick={() => handleTeacherScheduleNavigate(item.trim())}
-           >
-             {shortenName(item)}
-           </Link>
-         )}
-       </td>
-     } else {
-       return <td className="table-body_row_item teacher_cell">
-         <Link
-           to={`/schedule/teacher/${teacherNames}`}
-           className="teacher_link"
-           onClick={() => handleTeacherScheduleNavigate(teacherNames)}
-         >
-           {shortenName(teacherNames)}
-         </Link>
-       </td>
-     }
-   };
-
-  const filterSchedule = (day, week, name, scheduleArray) => {
-    return scheduleArray.filter(item => {
-      if (week === 'все') {
-        return (item.lessonDay === day);
-      } else {
-        return (
-          item.lessonDay === day &&
-          (item.weekNumber === null || item.weekNumber === week) &&
-          (item.numerator === null ||
-            (name === true ? item.numerator === false : item.numerator === true))
-        );
-      }
-    }).slice().sort((a, b) => a.lessonNumber - b.lessonNumber);
-  };
-
-  const mergeObjectsWithSameValues = (schedule) => {
-    const mergedSchedule = [];
-    schedule.forEach((item) => {
-      const existingItem = mergedSchedule.find((mergedItem) => (
-        mergedItem.lessonDay === item.lessonDay &&
-        mergedItem.lessonNumber === item.lessonNumber &&
-        mergedItem.lessonTime === item.lessonTime &&
-        mergedItem.typeClassName === item.typeClassName &&
-        mergedItem.disciplineName === item.disciplineName &&
-        mergedItem.groupName === item.groupName
-      ));
-
-      if (existingItem) {
-        existingItem.location += `, ${item.location}`;
-        existingItem.teacherFio += `, ${item.teacherFio}`;
-      } else {
-        mergedSchedule.push({...item});
-      }
-    });
-
-    return mergedSchedule;
+  const generateTeacherLinks = (teacherNames, rowDay) => {
+    if (teacherNames.includes(',')) {
+      const splitNames = teacherNames.split(',');
+      return <td className={`table-body_row_item teacher_cell ${matchDayOfWeek(rowDay)}`}>
+        {splitNames.map((item, index) =>
+          <Link
+            key={index}
+            to={`/schedule/teacher/${item.trim()}`}
+            className="teacher_link"
+            onClick={() => handleTeacherScheduleNavigate(item.trim())}
+          >
+            {shortenName(item)}
+          </Link>
+        )}
+      </td>
+    } else {
+      return <td className={`table-body_row_item teacher_cell ${matchDayOfWeek(rowDay)}`}>
+        <Link
+          to={`/schedule/teacher/${teacherNames}`}
+          className="teacher_link"
+          onClick={() => handleTeacherScheduleNavigate(teacherNames)}
+        >
+          {shortenName(teacherNames)}
+        </Link>
+      </td>
+    }
   };
 
   const handleTeacherScheduleNavigate = (teacherFio) => {
     dispatch(fetchTeacherSchedule("'" + teacherFio + "'"));
     dispatch(setTeacherFio(teacherFio));
     dispatch(clearGroup());
+    dispatch(clearCorrespondenceGroup());
   }
 
   return (
@@ -111,8 +79,8 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
         <table className="schedule-table">
           <thead className="table-header">
           <tr className="table-header_row">
-            {isTeacherSchedule ?
-              tableHeaderForTeacher.map((name, index) => (
+            {currentWeekDay === 'ALL' ?
+              tableHeaderForAllDays.map((name, index) => (
                 <th className="table-header_item" key={index}>
                   {name}
                 </th>
@@ -128,25 +96,33 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
           <tbody>
           {filteredSchedule.length === 0 ? (
             <tr>
-              <td colSpan="8" className="table-body_row_item no_lessons">
+              <td colSpan="9" className="table-body_row_item no_lessons">
                 <img className="no-lesson-img" src={noLessons} alt="Пар нет"/>
               </td>
             </tr>
           ) : (
             filteredSchedule.map((tableItem) => (
-              <tr className="table-body_row" key={tableItem.id}>
-                <td className={`table-body_row_item lesson_number ${generateClassName(tableItem.typeClassName)}`}>
+              <tr key={tableItem.id} className={`table-body_row`}>
+                <td
+                  className={`table-body_row_item lesson_number ${generateClassName(tableItem.typeClassName)} ${matchDayOfWeek(tableItem.lessonDay)}`}>
                   {tableItem.lessonNumber}
                 </td>
-                <td className="table-body_row_item">{matchLessonTime(tableItem.lessonNumber)}</td>
-                <td className="table-body_row_item">{matchLessonTypeAbbreviation(tableItem.typeClassName)}</td>
-                <td className="table-body_row_item">{tableItem.disciplineName}</td>
+                {
+                  currentWeekDay === 'ALL' ? <td
+                    className={`table-body_row_item ${matchDayOfWeek(tableItem.lessonDay)}`}>{tableItem.lessonDay}</td> : ''
+                }
+                <td
+                  className={`table-body_row_item ${matchDayOfWeek(tableItem.lessonDay)}`}>{matchLessonTime(tableItem.lessonNumber)}</td>
+                <td
+                  className={`table-body_row_item ${matchDayOfWeek(tableItem.lessonDay)}`}>{matchLessonTypeAbbreviation(tableItem.typeClassName)}</td>
+                <td
+                  className={`table-body_row_item ${matchDayOfWeek(tableItem.lessonDay)}`}>{tableItem.disciplineName}</td>
                 {tableItem.subGroup === 1 || tableItem.subGroup === 2 ? (
-                  <td className="table-body_row_item">{tableItem.subGroup}</td>
+                  <td className={`table-body_row_item ${matchDayOfWeek(tableItem.lessonDay)}`}>{tableItem.subGroup}</td>
                 ) : (
-                  <td className="table-body_row_item">Вся группа</td>
+                  <td className={`table-body_row_item ${matchDayOfWeek(tableItem.lessonDay)}`}>Вся группа</td>
                 )}
-                <td className="table-body_row_item">
+                <td className={`table-body_row_item ${matchDayOfWeek(tableItem.lessonDay)}`}>
                   {tableItem.weekNumber === 1
                     ? '1'
                     : tableItem.weekNumber === 2
@@ -158,7 +134,7 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
                           : 'Всегда'
                   }
                 </td>
-                <td className="table-body_row_item">
+                <td className={`table-body_row_item ${matchDayOfWeek(tableItem.lessonDay)}`}>
                   {tableItem.numerator === false
                     ? 'Знаменатель'
                     : tableItem.numerator === null
@@ -166,13 +142,10 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
                       : 'Числитель'
                   }
                 </td>
-                <td className="table-body_row_item">{tableItem.frame}-{tableItem.location}</td>
-                {isTeacherSchedule ?
-                  <td className="table-body_row_item">
-                    {tableItem.groupName}
-                  </td>
-                  :
-                  generateTeacherLinks(tableItem.teacherFio)
+                <td
+                  className={`table-body_row_item ${matchDayOfWeek(tableItem.lessonDay)}`}>{tableItem.frame}-{tableItem.location}</td>
+                {
+                  generateTeacherLinks(tableItem.teacherFio, tableItem.lessonDay)
                 }
               </tr>
             ))
@@ -196,8 +169,15 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
                   </div>
                   <span className="card-divider"></span>
                   <div>
-                    <div className="card-text"><span
-                      className="card-text-key"><b>День:</b></span>{matchDayOfWeek2(item.lessonDay)}</div>
+                    {
+                      currentWeekDay === 'ALL' ?
+                        <div className="card-text">
+                          <span
+                            className="card-text-key"><b>День:</b></span>{matchDayOfWeek2(matchDayOfWeek(item.lessonDay))}
+                        </div>
+                        :
+                        ''
+                    }
                     <div className="card-text"><span className="card-text-key"><b>Пара:</b></span>{item.lessonNumber}
                     </div>
                     <div className="card-text"><span
@@ -218,12 +198,17 @@ export const Table = ({scheduleData, isTeacherSchedule}) => {
                     <span className="card-text-key">
                       <b>Преподаватель:</b>
                     </span>
-                    <Link
-                      to={`/schedule/teacher/${item.teacherFio}`}
-                      onClick={() => handleTeacherScheduleNavigate(item.teacherFio)}
-                    >
-                      {shortenName(item.teacherFio)}
-                    </Link>
+                    {item.teacherFio.split(',').map((teacher, index) => (
+                      <span key={index} className="mobile-teacher-span">
+                        <Link
+                          to={`/schedule/teacher/${teacher.trim()}`}
+                          onClick={() => handleTeacherScheduleNavigate(teacher.trim())}
+                        >
+                          {shortenName(teacher)}
+                        </Link>
+                        {index !== item.teacherFio.split(',').length - 1 && ', '}
+                      </span>
+                    ))}
                   </div>
                   <span className="card-divider"></span>
                   <div>

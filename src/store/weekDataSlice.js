@@ -121,6 +121,7 @@ export const {
   setWeekDay,
   setWeekNumber,
   setWeekName,
+  clearWeekData,
 } = weekDataSlice.actions;
 
 export const weekDataReducer = weekDataSlice.reducer;
