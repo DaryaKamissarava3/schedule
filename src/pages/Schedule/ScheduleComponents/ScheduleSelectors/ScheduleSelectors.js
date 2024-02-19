@@ -43,20 +43,32 @@ export const ScheduleSelectors = ({isCorrespondenceSchedule}) => {
   const [isCheckedNumerator, setIsCheckedNumerator] = useState(false);
   const [isCheckedDenominator, setIsCheckedDenominator] = useState(false);
 
+  const [isFirstRender, setIsFirstRender] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isCorrespondenceSchedule === true) { //для заочников. сначала выводим на всю неделю расписание
-      setCurrentWeekDay('Все дни');
-      dispatch(setWeekDay('ALL'));
-    }
+    if (isFirstRender) {
+      if (isCorrespondenceSchedule === true) { //для заочников. сначала выводим на всю неделю расписание
+        setCurrentWeekDay('Все дни');
+        dispatch(setWeekDay('ALL'));
+      }
 
-    if (currentWeekName === true) {
-      setIsCheckedNumerator(false);
-      setIsCheckedDenominator(true);
+      if (currentWeekName === true) {
+        setIsCheckedNumerator(false);
+        setIsCheckedDenominator(true);
+      } else {
+        setIsCheckedNumerator(true);
+        setIsCheckedDenominator(false);
+      }
+      setIsFirstRender(false);
     } else {
-      setIsCheckedNumerator(true);
-      setIsCheckedDenominator(false);
+      if (currentWeekName === true) {
+        setIsCheckedNumerator(false);
+        setIsCheckedDenominator(true);
+      } else {
+        setIsCheckedNumerator(true);
+        setIsCheckedDenominator(false);
+      }
     }
   }, [currentWeekName]);
 
@@ -78,12 +90,14 @@ export const ScheduleSelectors = ({isCorrespondenceSchedule}) => {
   const handleCheckboxNumerator = () => {
     setIsCheckedNumerator(true);
     setIsCheckedDenominator(false);
+    console.log(currentWeekDay)
     dispatch(setWeekName(false));
   }
 
   const handleCheckboxDenominator = () => {
     setIsCheckedNumerator(false);
     setIsCheckedDenominator(true);
+    console.log(currentWeekDay)
     dispatch(setWeekName(true));
   }
 
