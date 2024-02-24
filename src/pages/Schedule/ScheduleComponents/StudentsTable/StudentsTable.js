@@ -6,15 +6,18 @@ import { fetchTeacherSchedule } from '../../../../store/scheduleSlice';
 import { clearCorrespondenceGroup, clearGroup, setTeacherFio } from '../../../../store/selectsData';
 import {
   tableHeaderForAllDays,
+  tableHeaderForCorrespondence,
   tableHeaderForStudents,
 } from '../../../../assets/utils/arrays';
 import {
   filterSchedule,
-  generateClassName, matchDayOfWeek,
+  generateClassName,
+  matchDayOfWeek,
   matchDayOfWeek2,
   matchLessonTime,
   matchLessonTypeAbbreviation,
   mergeObjectsWithSameValues,
+  reverseDateForTable,
   shortenName
 } from '../../../../assets/utils/functions';
 import noLessons from '../../../../assets/images/no-lessons.svg';
@@ -22,7 +25,7 @@ import noLessonsSmall from '../../../../assets/images/no-lesson-small.svg';
 
 import './style.css';
 
-export const StudentsTable = ({scheduleData, isCorrespondenceSchedule}) => {
+export const StudentsTable = ({ scheduleData, isCorrespondenceSchedule }) => {
   const currentWeekDay = useSelector((state) => state.weekData.weekDay);
   const currentWeekNumber = useSelector((state) => state.weekData.weekNumber);
   const currentWeekName = useSelector((state) => state.weekData.weekName);
@@ -80,12 +83,21 @@ export const StudentsTable = ({scheduleData, isCorrespondenceSchedule}) => {
           <thead className="table-header">
           <tr className="table-header_row">
             {currentWeekDay === 'ALL' ?
-              tableHeaderForAllDays.map((name, index) => (
-                <th className="table-header_item" key={index}>
-                  {name}
-                </th>
-              ))
-              : tableHeaderForStudents.map((name, index) => (
+              (isCorrespondenceSchedule ?
+                  tableHeaderForCorrespondence.map((name, index) => (
+                    <th className="table-header_item" key={index}>
+                      {name}
+                    </th>
+                  ))
+                  :
+                  tableHeaderForAllDays.map((name, index) => (
+                    <th className="table-header_item" key={index}>
+                      {name}
+                    </th>
+                  ))
+              )
+              :
+              tableHeaderForStudents.map((name, index) => (
                 <th className="table-header_item" key={index}>
                   {name}
                 </th>
@@ -102,15 +114,21 @@ export const StudentsTable = ({scheduleData, isCorrespondenceSchedule}) => {
             </tr>
           ) : (
             filteredSchedule.map((tableItem) => (
-              <tr key={tableItem.id} className={`table-body_row`}>
-                <td
-                  className={`table-body_row_item lesson_number ${generateClassName(tableItem.typeClassName)} ${matchDayOfWeek(tableItem.lessonDay)}`}>
-                  {tableItem.lessonNumber}
-                </td>
+              <tr key={tableItem.id} className={`table-body_row ${generateClassName(tableItem.typeClassName)}`}>
+                {isCorrespondenceSchedule ?
+                  <td className={`table-body_row_item ${matchDayOfWeek(tableItem.lessonDay)}`}>
+                    {reverseDateForTable(tableItem.startDate)}
+                  </td> :
+                  ''
+                }
                 {
                   currentWeekDay === 'ALL' ? <td
                     className={`table-body_row_item ${matchDayOfWeek(tableItem.lessonDay)}`}>{tableItem.lessonDay}</td> : ''
                 }
+                <td
+                  className={`table-body_row_item lesson_number  ${matchDayOfWeek(tableItem.lessonDay)}`}>
+                  {tableItem.lessonNumber}
+                </td>
                 <td
                   className={`table-body_row_item ${matchDayOfWeek(tableItem.lessonDay)}`}>{matchLessonTime(tableItem.lessonNumber)}</td>
                 <td
@@ -170,13 +188,27 @@ export const StudentsTable = ({scheduleData, isCorrespondenceSchedule}) => {
                   <span className="card-divider"></span>
                   <div>
                     {
-                      currentWeekDay === 'ALL' ?
-                        <div className="card-text">
+                      currentWeekDay === 'ALL' && isCorrespondenceSchedule ?
+                        <>
+                          <div className="card-text">
+                           <span
+                             className="card-text-key"><b>Дата:</b>
+                           </span>
+                            {reverseDateForTable(item.startDate)}
+                          </div>
+                          <div className="card-text">
                           <span
                             className="card-text-key"><b>День:</b></span>{matchDayOfWeek2(matchDayOfWeek(item.lessonDay))}
-                        </div>
+                          </div>
+                        </>
                         :
-                        ''
+                        currentWeekDay === 'ALL' ?
+                          <div className="card-text">
+                          <span
+                            className="card-text-key"><b>День:</b></span>{matchDayOfWeek2(matchDayOfWeek(item.lessonDay))}
+                          </div> :
+
+                          ''
                     }
                     <div className="card-text"><span className="card-text-key"><b>Пара:</b></span>{item.lessonNumber}
                     </div>

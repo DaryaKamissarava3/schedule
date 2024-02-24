@@ -9,7 +9,7 @@ import { StudentsTable } from '../ScheduleComponents/StudentsTable';
 export const CorrespondenceSchedule = () => {
   const {studentsScheduleStatus, studentsScheduleData, studentsScheduleError} = useSelector((state) => state.schedule);
 
-  const groupName = useSelector((state) => state.selectsData.group);
+  const groupName = useSelector((state) => state.selectsData.correspondenceGroup);
 
   return (
     <>

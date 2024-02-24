@@ -159,7 +159,12 @@ export const TeacherTable = ({ scheduleData }) => {
                   </div>
                   <span className="card-divider"></span>
                   <div>
-                    <div className="card-text"><span className="card-text-key"><b>День:</b></span>{item.lessonDay}</div>
+                    {
+                      currentWeekDay === 'ALL' ?
+                        <div className="card-text"><span className="card-text-key"><b>День:</b></span>{item.lessonDay}</div>
+                        :
+                        ''
+                    }
                     <div className="card-text"><span className="card-text-key"><b>Пара:</b></span>{item.lessonNumber}
                     </div>
                     <div className="card-text"><span className="card-text-key"><b>Время:</b></span>{item.lessonTime}

@@ -1,5 +1,9 @@
 import { lessonAbbreviations, lessonTime, russianToEnglishWeekdays } from './arrays';
 
+export const reverseDateForTable = (date) => {
+  return date.split('-').reverse().join('.');
+}
+
 export const filterSchedule = (day, week, name, scheduleArray) => {
   if (day === 'ALL') {
     const dayOrder = {};

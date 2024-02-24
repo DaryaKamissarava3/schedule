@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { CustomSelect } from '../../../../components/CustomSelect';
+import {CustomSelect} from '../../../../components/CustomSelect';
 
 import {
   setWeekDay,
@@ -85,19 +85,27 @@ export const ScheduleSelectors = ({isCorrespondenceSchedule}) => {
       setIsCheckedNumerator(false);
       setIsCheckedDenominator(false);
     }
+
+    if (selectedOption.value === 1 || selectedOption.value === 3) {
+      setWeekName(false);
+      setIsCheckedNumerator(true);
+      setIsCheckedDenominator(false);
+    } else {
+      setWeekName(true);
+      setIsCheckedNumerator(false);
+      setIsCheckedDenominator(true);
+    }
   };
 
   const handleCheckboxNumerator = () => {
     setIsCheckedNumerator(true);
     setIsCheckedDenominator(false);
-    console.log(currentWeekDay)
     dispatch(setWeekName(false));
   }
 
   const handleCheckboxDenominator = () => {
     setIsCheckedNumerator(false);
     setIsCheckedDenominator(true);
-    console.log(currentWeekDay)
     dispatch(setWeekName(true));
   }
 
