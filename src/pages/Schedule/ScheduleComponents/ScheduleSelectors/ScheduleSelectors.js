@@ -86,15 +86,15 @@ export const ScheduleSelectors = ({isCorrespondenceSchedule}) => {
       setIsCheckedDenominator(false);
     }
 
-    if (selectedOption.value === 1 || selectedOption.value === 3) {
-      setWeekName(false);
-      setIsCheckedNumerator(true);
-      setIsCheckedDenominator(false);
-    } else {
-      setWeekName(true);
-      setIsCheckedNumerator(false);
-      setIsCheckedDenominator(true);
-    }
+    // if (selectedOption.value === 1 || selectedOption.value === 3) {
+    //   setWeekName(false);
+    //   setIsCheckedNumerator(true);
+    //   setIsCheckedDenominator(false);
+    // } else {
+    //   setWeekName(true);
+    //   setIsCheckedNumerator(false);
+    //   setIsCheckedDenominator(true);
+    // }
   };
 
   const handleCheckboxNumerator = () => {

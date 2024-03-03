@@ -1,6 +1,10 @@
 import { lessonAbbreviations, lessonTime, russianToEnglishWeekdays } from './arrays';
 
 export const reverseDateForTable = (date) => {
+  if (date === null) {
+    return '';
+  }
+
   return date.split('-').reverse().join('.');
 }
 
