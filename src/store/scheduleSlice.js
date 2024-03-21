@@ -18,6 +18,23 @@ export const fetchStudentsSchedule = createAsyncThunk(
   }
 );
 
+export const fetchStudentsSessionSchedule = createAsyncThunk(
+  `schedule/fetchStudentsSessionSchedule`,
+  async (group, {rejectWithValue}) => {
+    try {
+      const response = await axios.get(`https://student.vstu.by/api/schedule/group/exam?name=${group}`);
+
+      if (response.status !== 200) {
+        throw new Error('Server error!')
+      }
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const fetchTeacherSchedule = createAsyncThunk(
   `schedule/fetchTeacherSchedule`,
   async (teacherFio, {rejectWithValue}) => {
@@ -35,13 +52,36 @@ export const fetchTeacherSchedule = createAsyncThunk(
   }
 );
 
+export const fetchTeacherSessionSchedule = createAsyncThunk(
+  `schedule/fetchTeacherSessionSchedule`,
+  async (teacherFio, {rejectWithValue}) => {
+    try {
+      const response = await axios.get(`https://student.vstu.by/api/schedule/teacherFIO/exam?fio=${teacherFio}`);
+
+      if (response.status !== 200) {
+        throw new Error('Server error!')
+      }
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const initialState = {
   studentsScheduleData: [],
+  studentsScheduleSessionData:[],
   teacherScheduleData: [],
+  teacherScheduleSessionData: [],
   studentsScheduleStatus: null,
+  studentsScheduleSessionStatus: null,
   teacherScheduleStatus: null,
+  teacherScheduleSessionStatus: null,
   studentsScheduleError: null,
+  studentsScheduleSessionError: null,
   teacherScheduleError: null,
+  teacherScheduleSessionError: null,
 };
 
 const scheduleSlice = createSlice({
@@ -51,6 +91,8 @@ const scheduleSlice = createSlice({
     clearSchedule(state) {
       state.studentsScheduleData = [];
       state.studentsScheduleStatus = null;
+      state.studentsScheduleSessionData = [];
+      state.studentsScheduleSessionStatus = null;
       state.teacherScheduleData = [];
       state.teacherScheduleStatus = null;
     },
@@ -68,6 +110,17 @@ const scheduleSlice = createSlice({
       .addCase(fetchStudentsSchedule.rejected, (state) => {
         state.studentsScheduleStatus = 'rejected';
       })
+      .addCase(fetchStudentsSessionSchedule.pending, (state) => {
+        state.studentsScheduleSessionStatus = 'loading';
+        state.studentsScheduleSessionError = null;
+      })
+      .addCase(fetchStudentsSessionSchedule.fulfilled, (state, action) => {
+        state.studentsScheduleSessionStatus = 'resolved';
+        state.studentsScheduleSessionData = action.payload;
+      })
+      .addCase(fetchStudentsSessionSchedule.rejected, (state) => {
+        state.studentsScheduleSessionStatus = 'rejected';
+      })
       .addCase(fetchTeacherSchedule.pending, (state) => {
         state.teacherScheduleStatus = 'loading';
         state.teacherScheduleError = null;
@@ -78,6 +131,17 @@ const scheduleSlice = createSlice({
       })
       .addCase(fetchTeacherSchedule.rejected, (state) => {
         state.teacherScheduleStatus = 'rejected';
+      })
+      .addCase(fetchTeacherSessionSchedule.pending, (state) => {
+        state.teacherScheduleSessionStatus = 'loading';
+        state.teacherScheduleSessionError = null;
+      })
+      .addCase(fetchTeacherSessionSchedule.fulfilled, (state, action) => {
+        state.teacherScheduleSessionStatus = 'resolved';
+        state.teacherScheduleSessionData = action.payload;
+      })
+      .addCase(fetchTeacherSessionSchedule.rejected, (state) => {
+        state.teacherScheduleSessionStatus = 'rejected';
       })
   })
 });

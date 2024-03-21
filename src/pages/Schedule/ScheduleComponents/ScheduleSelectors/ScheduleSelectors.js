@@ -4,14 +4,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import {CustomSelect} from '../../../../components/CustomSelect';
 
 import {
+  setScheduleType,
   setWeekDay,
   setWeekName,
   setWeekNumber
 } from '../../../../store/weekDataSlice';
 
-import { matchDayOfWeek2 } from '../../../../assets/utils/functions';
+import {matchDayOfWeek2, matchScheduleType} from '../../../../assets/utils/functions';
 
 import './style.css';
+
+const typeOptions = [
+  {value: 'ordinary-schedule', label: 'Обычное'},
+  {value: 'session-schedule', label: 'Сессия'},
+];
 
 const dayOptions = [
   {value: 'MONDAY', label: 'Понедельник'},
@@ -39,6 +45,7 @@ export const ScheduleSelectors = ({isCorrespondenceSchedule}) => {
 
   const [currentWeekDay, setCurrentWeekDay] = useState(matchDayOfWeek2(weekDay));
   const [selectedWeekNumber, setSelectedWeekNumber] = useState(currentWeekNumber);
+  const [selectedScheduleType, setSelectedScheduleType] = useState('Обычное');
 
   const [isCheckedNumerator, setIsCheckedNumerator] = useState(false);
   const [isCheckedDenominator, setIsCheckedDenominator] = useState(false);
@@ -71,6 +78,11 @@ export const ScheduleSelectors = ({isCorrespondenceSchedule}) => {
       }
     }
   }, [currentWeekName]);
+
+  const handleTypeScheduleChange = (selectedOption) => {
+    setSelectedScheduleType(matchScheduleType(selectedOption.value));
+    dispatch(setScheduleType(selectedOption.value));
+  };
 
   const handleWeekDayChange = (selectedOption) => {
     setCurrentWeekDay(matchDayOfWeek2(selectedOption.value));
@@ -111,6 +123,12 @@ export const ScheduleSelectors = ({isCorrespondenceSchedule}) => {
 
   return (
     <div className="schedule-selectors-container">
+      <CustomSelect
+        options={typeOptions}
+        value={{value: selectedScheduleType, label: selectedScheduleType}}
+        onChange={handleTypeScheduleChange}
+        label="Выберите тип расписания"
+      />
       <CustomSelect
         options={dayOptions}
         value={{value: currentWeekDay, label: currentWeekDay}}

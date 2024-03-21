@@ -4,7 +4,10 @@ export const tableHeaderForTeacher = ['Пара', 'Время', 'Тип заня
 
 export const tableHeaderForAllDays = ['\u00A0\u00A0\u00A0\u00A0День\u00A0\u00A0', 'Пара', 'Время', 'Тип занятия', 'Дисциплина', 'Подгруппа', 'Неделя', 'Числитель / Знаменатель', 'Аудитория', 'Преподаватель'];
 
-export const tableHeaderForCorrespondence= ['\u00A0\u00A0Дата\u00A0\u00A0', '\u00A0День\u00A0\u00A0','Пара', 'Время', 'Тип занятия', 'Дисциплина', 'Подгруппа', 'Неделя', 'Числитель / Знаменатель', 'Аудитория', 'Преподаватель'];
+export const tableHeaderForCorrespondence = ['\u00A0\u00A0Дата\u00A0\u00A0', '\u00A0День\u00A0\u00A0', 'Пара', 'Время', 'Тип занятия', 'Дисциплина', 'Подгруппа', 'Неделя', 'Числитель / Знаменатель', 'Аудитория', 'Преподаватель'];
+
+export const tableHeaderTeacherSession = ['Дата', 'День', 'Время', 'Тип занятий', 'Дисциплина', 'Аудитория', 'Группа'];
+export const tableHeaderStudentSession = ['Дата', 'День', 'Время', 'Тип занятий', 'Дисциплина', 'Аудитория', 'Преподаватель'];
 
 export const lessonAbbreviations = [
   {typeClassName: 'Лекция', abbreviation: 'Лекция'},
@@ -30,4 +33,9 @@ export const russianToEnglishWeekdays = [
   {dayInRussian: 'Пятница', dayInEnglish: 'FRIDAY'},
   {dayInRussian: 'Суббота', dayInEnglish: 'SATURDAY'},
   {dayInRussian: 'Воскресенье', dayInEnglish: 'SUNDAY'},
+];
+
+export const russianToEnglishScheduleTypes = [
+  {typeInRussian: 'Обычное', typeInEnglish: 'ordinary-schedule'},
+  {typeInRussian: 'Сессия', typeInEnglish: 'session-schedule'},
 ];

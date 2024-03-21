@@ -18,7 +18,7 @@ import {
   setTeacherFio
 } from './store/selectsData';
 import { fetchStudentsSchedule, fetchTeacherSchedule } from './store/scheduleSlice';
-import { fetchWeekDay, fetchWeekName, fetchWeekNumber } from './store/weekDataSlice';
+import {clearScheduleType, fetchWeekDay, fetchWeekName, fetchWeekNumber} from './store/weekDataSlice';
 
 const Layout = ({ children }) => {
   const [selectedTeacher, setSelectedTeacher] = useState(null);
@@ -48,6 +48,7 @@ const Layout = ({ children }) => {
     dispatch(fetchTeacherSchedule("'" + selectedOption.value + "'"));
     dispatch(clearGroup());
     dispatch(clearCorrespondenceGroup());
+    dispatch(clearScheduleType());
   };
 
   const handleGroupChange = (selectedOption) => {
@@ -58,6 +59,7 @@ const Layout = ({ children }) => {
     dispatch(fetchStudentsSchedule(selectedOption.value));
     dispatch(clearTeacherFio());
     dispatch(clearCorrespondenceGroup());
+    dispatch(clearScheduleType());
   };
 
   const handleCorrespondenceGroupChange = (selectedOption) => {
@@ -68,6 +70,7 @@ const Layout = ({ children }) => {
     dispatch(fetchStudentsSchedule(selectedOption.value));
     dispatch(clearTeacherFio());
     dispatch(clearGroup());
+    dispatch(clearScheduleType());
   };
 
   const sortTeachersFio = (teachersData) => {

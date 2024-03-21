@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const fetchWeekDay = createAsyncThunk(
@@ -52,6 +52,7 @@ export const fetchWeekName = createAsyncThunk(
 );
 
 const initialState = {
+  scheduleType: 'ordinary-schedule',
   weekDay: null,
   weekNumber: null,
   weekName: null,
@@ -63,6 +64,9 @@ const weekDataSlice = createSlice({
   name: 'weekData',
   initialState,
   reducers: {
+    setScheduleType(state, action) {
+      state.scheduleType = action.payload;
+    },
     setWeekDay(state, action) {
       state.weekDay = action.payload;
     },
@@ -72,11 +76,8 @@ const weekDataSlice = createSlice({
     setWeekName(state, action) {
       state.weekName = action.payload;
     },
-    clearWeekData(state) {
-      state.weekDay = null;
-      state.weekNumber = null;
-      state.weekName = null;
-      state.status = null;
+    clearScheduleType(state) {
+      state.scheduleType = 'ordinary-schedule';
     }
   },
   extraReducers: (builder) => {
@@ -118,10 +119,11 @@ const weekDataSlice = createSlice({
 });
 
 export const {
+  setScheduleType,
   setWeekDay,
   setWeekNumber,
   setWeekName,
-  clearWeekData,
+  clearScheduleType,
 } = weekDataSlice.actions;
 
 export const weekDataReducer = weekDataSlice.reducer;

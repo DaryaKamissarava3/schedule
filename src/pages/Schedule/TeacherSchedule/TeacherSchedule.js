@@ -1,10 +1,13 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, {useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { ErrorMessage } from '../../../components/Error/ErrorMessage';
 import { Spinner } from '../../../components/Spinner';
 import { TeacherTable } from '../ScheduleComponents/TeacherTable';
 import { ScheduleSelectors } from '../ScheduleComponents/ScheduleSelectors';
+import { SessionTable } from '../ScheduleComponents/SessionTable';
+
+import { fetchTeacherSessionSchedule } from '../../../store/scheduleSlice';
 
 import './style.css';
 
@@ -12,6 +15,13 @@ export const TeacherSchedule = () => {
   const {teacherScheduleStatus, teacherScheduleData, teacherScheduleError} = useSelector((state) => state.schedule);
 
   const teacherName = useSelector((state) => state.selectsData.teacher);
+  const scheduleType = useSelector((state) => state.weekData.scheduleType);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchTeacherSessionSchedule(teacherName));
+  }, [teacherName]);
 
   return (
     <>
@@ -23,7 +33,13 @@ export const TeacherSchedule = () => {
           <div className="group-selectors-block">
             <ScheduleSelectors isCorrespondenceSchedule={true} />
           </div>
-          <TeacherTable scheduleData={teacherScheduleData} />
+          {
+            scheduleType==='ordinary-schedule'
+              ?
+              <TeacherTable scheduleData={teacherScheduleData} />
+              :
+              <SessionTable/>
+          }
         </>
       )}
     </>

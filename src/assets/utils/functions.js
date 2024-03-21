@@ -1,4 +1,4 @@
-import { lessonAbbreviations, lessonTime, russianToEnglishWeekdays } from './arrays';
+import {lessonAbbreviations, lessonTime, russianToEnglishScheduleTypes, russianToEnglishWeekdays} from './arrays';
 
 export const reverseDateForTable = (date) => {
   if (date === null) {
@@ -115,6 +115,11 @@ export const generateClassName = (typeClassName) => {
       return 'practice_row';
   }
 };
+
+export const matchScheduleType=(scheduleType)=>{
+  const match = russianToEnglishScheduleTypes.find((item) => item.typeInEnglish === scheduleType);
+  return match ? match.typeInRussian : '';
+}
 
 export const matchDayOfWeek = (lessonDay) => {
   const match = russianToEnglishWeekdays.find((item) => item.dayInRussian === lessonDay);
