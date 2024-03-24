@@ -38,7 +38,7 @@ const weekNumberOptions = [
   {value: 'все', label: 'все'}
 ];
 
-export const ScheduleSelectors = ({isCorrespondenceSchedule}) => {
+export const ScheduleSelectors = ({isCorrespondenceSchedule,forAllWeek}) => {
   const weekDay = useSelector((state) => state.weekData.weekDay);
   const currentWeekNumber = useSelector((state) => state.weekData.weekNumber);
   const currentWeekName = useSelector((state) => state.weekData.weekName);
@@ -55,7 +55,7 @@ export const ScheduleSelectors = ({isCorrespondenceSchedule}) => {
 
   useEffect(() => {
     if (isFirstRender) {
-      if (isCorrespondenceSchedule === true) { //для заочников. сначала выводим на всю неделю расписание
+      if (isCorrespondenceSchedule || forAllWeek === true) { //для заочников. сначала выводим на всю неделю расписание
         setCurrentWeekDay('Все дни');
         dispatch(setWeekDay('ALL'));
       }
@@ -123,12 +123,16 @@ export const ScheduleSelectors = ({isCorrespondenceSchedule}) => {
 
   return (
     <div className="schedule-selectors-container">
-      <CustomSelect
-        options={typeOptions}
-        value={{value: selectedScheduleType, label: selectedScheduleType}}
-        onChange={handleTypeScheduleChange}
-        label="Выберите тип расписания"
-      />
+      {!isCorrespondenceSchedule?
+        <CustomSelect
+          options={typeOptions}
+          value={{value: selectedScheduleType, label: selectedScheduleType}}
+          onChange={handleTypeScheduleChange}
+          label="Выберите тип расписания"
+        />
+      :
+      ''
+      }
       <CustomSelect
         options={dayOptions}
         value={{value: currentWeekDay, label: currentWeekDay}}

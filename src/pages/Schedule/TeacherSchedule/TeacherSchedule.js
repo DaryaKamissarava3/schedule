@@ -31,7 +31,7 @@ export const TeacherSchedule = () => {
         <>
           <h3 className="teacher-name-title">{teacherName}</h3>
           <div className="group-selectors-block">
-            <ScheduleSelectors isCorrespondenceSchedule={true} />
+            <ScheduleSelectors forAllWeek={true} />
           </div>
           {
             scheduleType==='ordinary-schedule'

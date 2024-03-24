@@ -67,8 +67,7 @@
   height: 60px;
   text-align: center;
   background-color: white;
-  border-bottom: 1px solid #E2E8F0;
-  border-right: 1px solid #E2E8F0;
+  border: 1px solid #E2E8F0;
 }
 
 .table-body_row_item.lesson_number {
@@ -242,10 +241,12 @@
     border: 1px solid #cecfd0;
     border-radius: 20px;
   }
-.mobile-group-span{
-  padding-right: 5px;
-}
-  .mobile-teacher-span:nth-child(2){
+
+  .mobile-group-span {
+    padding-right: 5px;
+  }
+
+  .mobile-teacher-span:nth-child(2) {
     padding-right: 30px;
   }
 

@@ -14,6 +14,12 @@
   width: 300px;
 }
 
+@media screen  and (max-width: 1119px) and (min-width: 913px) {
+  .custom-select-container:nth-child(3) {
+    margin-top: 50px;
+  }
+}
+
 @media screen  and (max-width: 910px) {
   .custom-select-container {
     margin-top: 50px;

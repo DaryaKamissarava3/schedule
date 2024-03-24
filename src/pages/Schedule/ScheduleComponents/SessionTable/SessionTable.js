@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {useSelector} from "react-redux";
+import {useSelector} from 'react-redux';
 import {
   tableHeaderStudentSession,
   tableHeaderTeacherSession
-} from "../../../../assets/utils/arrays";
-import noLessons from "../../../../assets/images/no-lessons.svg";
+} from '../../../../assets/utils/arrays';
+import noLessons from '../../../../assets/images/no-lessons.svg';
 import {
   generateClassName, matchDayOfWeek2, matchLessonTime, reverseDateForTable,
 } from '../../../../assets/utils/functions';
-import noLessonsSmall from "../../../../assets/images/no-lesson-small.svg";
+import noLessonsSmall from '../../../../assets/images/no-lesson-small.svg';
 
 
 export const SessionTable = ({isStudentSession}) => {
