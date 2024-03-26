@@ -4,7 +4,7 @@ export const tableHeaderForTeacher = ['Пара', 'Время', 'Тип заня
 
 export const tableHeaderForAllDays = ['\u00A0\u00A0\u00A0\u00A0День\u00A0\u00A0', 'Пара', 'Время', 'Тип занятия', 'Дисциплина', 'Подгруппа', 'Неделя', 'Числитель / Знаменатель', 'Аудитория', 'Преподаватель'];
 
-export const tableHeaderForCorrespondence = ['\u00A0\u00A0Дата\u00A0\u00A0', '\u00A0День\u00A0\u00A0', 'Пара', 'Время', 'Тип занятия', 'Дисциплина', 'Подгруппа', 'Неделя', 'Числитель / Знаменатель', 'Аудитория', 'Преподаватель'];
+export const tableHeaderForCorrespondence = ['\u00A0\u00A0Дата\u00A0\u00A0', '\u00A0День\u00A0\u00A0', 'Пара', 'Время', 'Тип занятия', 'Дисциплина', 'Аудитория', 'Преподаватель'];
 
 export const tableHeaderTeacherSession = ['Дата', 'День', 'Время', 'Тип занятий', 'Дисциплина', 'Аудитория', 'Группа'];
 export const tableHeaderStudentSession = ['Дата', 'День', 'Время', 'Тип занятий', 'Дисциплина', 'Аудитория', 'Преподаватель'];
@@ -13,9 +13,11 @@ export const lessonAbbreviations = [
   {typeClassName: 'Лекция', abbreviation: 'Лекция'},
   {typeClassName: 'Лабораторная работа', abbreviation: 'Лабораторная'},
   {typeClassName: 'Практическая работа', abbreviation: 'Практическая'},
+  {typeClassName: 'Экзамен', abbreviation: 'Экзамен'},
+  {typeClassName: 'Консультация', abbreviation: 'Консультация'},
 ];
 
-export const lessonTime = [
+export const lessonTimes = [
   {lessonNumber: 1, lessonTime: '8:00 - 9:35'},
   {lessonNumber: 2, lessonTime: '9:50 - 11:25'},
   {lessonNumber: 3, lessonTime: '11:40 - 13:15'},

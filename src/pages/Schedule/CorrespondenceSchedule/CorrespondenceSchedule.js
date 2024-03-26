@@ -3,8 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { Spinner } from '../../../components/Spinner';
 import { ErrorMessage } from '../../../components/Error/ErrorMessage';
-import { ScheduleSelectors } from '../ScheduleComponents/ScheduleSelectors';
-import { StudentsTable } from '../ScheduleComponents/StudentsTable';
+import {CorrespondenceTable} from "../ScheduleComponents/CorrespondenceTable";
 
 export const CorrespondenceSchedule = () => {
   const {studentsScheduleStatus, studentsScheduleData, studentsScheduleError} = useSelector((state) => state.schedule);
@@ -19,9 +18,8 @@ export const CorrespondenceSchedule = () => {
         <>
           <div className="group-selectors-block">
             <h3 className="group-title">Группа: {groupName}</h3>
-            <ScheduleSelectors isCorrespondenceSchedule={true} />
           </div>
-          <StudentsTable scheduleData={studentsScheduleData} isCorrespondenceSchedule={true} />
+          <CorrespondenceTable scheduleData={studentsScheduleData}  />
         </>
       )}
     </>
