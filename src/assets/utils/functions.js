@@ -113,6 +113,10 @@ export const generateClassName = (typeClassName) => {
       return 'lab_work_row';
     case 'Практическая работа':
       return 'practice_row';
+    case 'Консультация':
+      return 'consultation_row';
+    case 'Экзамен':
+      return 'exam_row';
   }
 };
 
@@ -148,4 +152,8 @@ export const matchWeekName = (weekName) => {
 export const shortenDisciplineName = (fullName) => {
   const splitName = fullName.split(" ");
   return splitName.map((word) => word.charAt(0).toUpperCase()).join("");
+}
+
+export const matchSelectScheduleType = (type) => {
+  return type === 'ordinary-schedule' ? 'Обычное' : 'Сессия';
 }

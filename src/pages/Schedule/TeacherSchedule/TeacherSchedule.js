@@ -38,7 +38,7 @@ export const TeacherSchedule = () => {
               ?
               <TeacherTable scheduleData={teacherScheduleData} />
               :
-              <SessionTable/>
+              <SessionTable isStudentSession={false}/>
           }
         </>
       )}

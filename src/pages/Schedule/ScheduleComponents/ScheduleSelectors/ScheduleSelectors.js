@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {CustomSelect} from '../../../../components/CustomSelect';
+import { CustomSelect } from '../../../../components/CustomSelect';
 
 import {
   setScheduleType,
@@ -10,7 +10,7 @@ import {
   setWeekNumber
 } from '../../../../store/weekDataSlice';
 
-import {matchDayOfWeek2, matchScheduleType} from '../../../../assets/utils/functions';
+import {matchDayOfWeek2, matchScheduleType, matchSelectScheduleType} from '../../../../assets/utils/functions';
 
 import './style.css';
 
@@ -38,14 +38,15 @@ const weekNumberOptions = [
   {value: 'все', label: 'все'}
 ];
 
-export const ScheduleSelectors = ({isCorrespondenceSchedule,forAllWeek}) => {
+export const ScheduleSelectors = ({isCorrespondenceSchedule, forAllWeek}) => {
   const weekDay = useSelector((state) => state.weekData.weekDay);
   const currentWeekNumber = useSelector((state) => state.weekData.weekNumber);
   const currentWeekName = useSelector((state) => state.weekData.weekName);
+  const scheduleType = useSelector((state) => state.weekData.scheduleType);
 
   const [currentWeekDay, setCurrentWeekDay] = useState(matchDayOfWeek2(weekDay));
   const [selectedWeekNumber, setSelectedWeekNumber] = useState(currentWeekNumber);
-  const [selectedScheduleType, setSelectedScheduleType] = useState('Обычное');
+  const [selectedScheduleType, setSelectedScheduleType] = useState(matchSelectScheduleType(scheduleType));
 
   const [isCheckedNumerator, setIsCheckedNumerator] = useState(false);
   const [isCheckedDenominator, setIsCheckedDenominator] = useState(false);
@@ -123,21 +124,18 @@ export const ScheduleSelectors = ({isCorrespondenceSchedule,forAllWeek}) => {
 
   return (
     <div className="schedule-selectors-container">
-      {!isCorrespondenceSchedule?
-        <CustomSelect
-          options={typeOptions}
-          value={{value: selectedScheduleType, label: selectedScheduleType}}
-          onChange={handleTypeScheduleChange}
-          label="Выберите тип расписания"
-        />
-      :
-      ''
-      }
+      <CustomSelect
+        options={typeOptions}
+        value={{value: selectedScheduleType, label: selectedScheduleType}}
+        onChange={handleTypeScheduleChange}
+        label="Выберите тип расписания"
+      />
       <CustomSelect
         options={dayOptions}
         value={{value: currentWeekDay, label: currentWeekDay}}
         onChange={handleWeekDayChange}
         label="Выберите день недели"
+        isDisabled={scheduleType === 'session-schedule'}
       />
       <CustomSelect
         options={weekNumberOptions}

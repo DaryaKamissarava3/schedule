@@ -193,7 +193,7 @@ export const CorrespondenceTable = ({scheduleData}) => {
                     <div className="card-text"><span className="card-text-key"><b>Пара:</b></span>{item.lessonNumber}
                     </div>
                     <div className="card-text"><span
-                      className="card-text-key"><b>Время:</b></span>{matchLessonTime(item.lessonNumber)}</div>
+                      className="card-text-key"><b>Время:</b></span>{item.lessonTime}</div>
                     <div className="card-text"><span
                       className="card-text-key"><b>Аудитория:</b></span>{item.frame}-{item.location}</div>
                     <div className="card-text"><span className="card-text-key"><b>Группа:</b></span>{item.groupName}

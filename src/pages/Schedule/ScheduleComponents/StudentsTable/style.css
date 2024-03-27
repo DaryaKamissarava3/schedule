@@ -86,6 +86,14 @@
   border-left: 5px solid #ffb024;
 }
 
+.consultation_row {
+  border-left: 5px solid #52b7f6;
+}
+
+.exam_row {
+  border-left: 5px solid #1812d5;
+}
+
 /*.table-body_row_item.no_lessons {*/
 /*  border-left: 8px solid #a2a2a2;*/
 /*}*/
@@ -261,6 +269,14 @@
   .practice_row {
     border-left: 8px solid #ffb024;
   }
+
+  .consultation_row {
+    border-left: 8px solid #52b7f6;
+  }
+
+  .exam_row {
+    border-left: 8px solid #1812d5;
+  }
 }
 
 @media screen  and ( max-width: 430px) {
@@ -323,5 +339,13 @@
 
   .practice_row {
     border-left: 8px solid #ffb024;
+  }
+
+  .consultation_row {
+    border-left: 8px solid #52b7f6;
+  }
+
+  .exam_row {
+    border-left: 8px solid #1812d5;
   }
 }

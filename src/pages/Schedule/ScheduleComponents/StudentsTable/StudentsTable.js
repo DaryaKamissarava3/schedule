@@ -31,7 +31,7 @@ export const StudentsTable = ({ scheduleData, isCorrespondenceSchedule }) => {
   const currentWeekName = useSelector((state) => state.weekData.weekName);
 
   const dispatch = useDispatch();
-console.log(scheduleData)
+
   const [filteredSchedule, setFilteredSchedule] = useState([]);
 
   useEffect(() => {

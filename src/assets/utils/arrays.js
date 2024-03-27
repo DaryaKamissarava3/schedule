@@ -15,6 +15,8 @@ export const lessonAbbreviations = [
   {typeClassName: 'Практическая работа', abbreviation: 'Практическая'},
   {typeClassName: 'Экзамен', abbreviation: 'Экзамен'},
   {typeClassName: 'Консультация', abbreviation: 'Консультация'},
+  {typeClassName: 'Зачёт', abbreviation: 'Зачёт'},
+  {typeClassName: 'Защита курсовой', abbreviation: 'Защита курсовой'},
 ];
 
 export const lessonTimes = [
