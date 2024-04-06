@@ -188,7 +188,7 @@ export const SessionTable = ({isStudentSession}) => {
       </div>
       <div className="schedule-table_mobile">
         <div className="mobile-table-container">
-          {teacherSessionData.length === 0 ? (
+          {!isStudentSession && teacherSessionData.length === 0 ? (
             <div className="mobile-table-block">
               <img className="no-lesson-img" src={noLessonsSmall} alt="Экзаменов нет"/>
             </div>
