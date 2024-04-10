@@ -10,12 +10,12 @@ import {
   generateClassName,
   matchLessonTime,
   matchLessonTypeAbbreviation,
-  mergeObjectsWithSameValues,
+  mergeObjectsWithSameValues, reverseDateForTable,
 } from '../../../../assets/utils/functions';
 
 import {
-  tableHeaderForAllDays,
-  tableHeaderForTeacher
+  tableHeaderForTeacher,
+  tableTeacherHeaderForAllDays
 } from '../../../../assets/utils/arrays';
 
 import noLessonsSmall from '../../../../assets/images/no-lesson-small.svg';
@@ -78,7 +78,7 @@ export const TeacherTable = ({ scheduleData }) => {
           <thead className="table-header">
           <tr className="table-header_row">
             {currentWeekDay === 'ALL' ?
-              tableHeaderForAllDays.map((name, index) => (
+              tableTeacherHeaderForAllDays.map((name, index) => (
                 <th className="table-header_item" key={index}>
                   {name}
                 </th>
@@ -100,13 +100,19 @@ export const TeacherTable = ({ scheduleData }) => {
             </tr>
           ) : (
             filteredSchedule.map((tableItem) => (
-              <tr className="table-body_row" key={tableItem.id}>
-                <td className={`table-body_row_item lesson_number ${generateClassName(tableItem.typeClassName)}`}>
-                  {tableItem.lessonNumber}
-                </td>
+              <tr className={`table-body_row_item lesson_number ${generateClassName(tableItem.typeClassName)}`}
+                  key={tableItem.id}>
                 {
                   currentWeekDay === 'ALL' ? <td className="table-body_row_item">{tableItem.lessonDay}</td> : ''
                 }
+                {tableItem.correspondence ?
+                  <td className="table-body_row_item">{reverseDateForTable(tableItem.startDate)}</td>
+                  :
+                  <td className="table-body_row_item">Всегда</td>
+                }
+                <td className="table-body_row">
+                  {tableItem.lessonNumber}
+                </td>
                 <td className="table-body_row_item">{matchLessonTime(tableItem.lessonNumber)}</td>
                 <td className="table-body_row_item">{matchLessonTypeAbbreviation(tableItem.typeClassName)}</td>
                 <td className="table-body_row_item">{tableItem.disciplineName}</td>
@@ -161,7 +167,8 @@ export const TeacherTable = ({ scheduleData }) => {
                   <div>
                     {
                       currentWeekDay === 'ALL' ?
-                        <div className="card-text"><span className="card-text-key"><b>День:</b></span>{item.lessonDay}</div>
+                        <div className="card-text"><span className="card-text-key"><b>День:</b></span>{item.lessonDay}
+                        </div>
                         :
                         ''
                     }

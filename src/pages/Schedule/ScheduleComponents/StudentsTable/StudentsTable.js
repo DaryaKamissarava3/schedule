@@ -20,6 +20,7 @@ import {
   reverseDateForTable,
   shortenName
 } from '../../../../assets/utils/functions';
+
 import noLessons from '../../../../assets/images/no-lessons.svg';
 import noLessonsSmall from '../../../../assets/images/no-lesson-small.svg';
 

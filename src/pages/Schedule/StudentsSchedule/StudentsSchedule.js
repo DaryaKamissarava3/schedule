@@ -1,14 +1,13 @@
-import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { ErrorMessage } from '../../../components/Error/ErrorMessage';
+import { SessionTable } from '../ScheduleComponents/SessionTable';
 import { ScheduleSelectors } from '../ScheduleComponents/ScheduleSelectors';
 import { Spinner } from '../../../components/Spinner';
 import { StudentsTable } from '../ScheduleComponents/StudentsTable';
 
-import {fetchStudentsSessionSchedule} from "../../../store/scheduleSlice";
-import {TeacherTable} from "../ScheduleComponents/TeacherTable";
-import {SessionTable} from "../ScheduleComponents/SessionTable";
+import { fetchStudentsSessionSchedule } from '../../../store/scheduleSlice';
 
 export const StudentsSchedule = () => {
   const {studentsScheduleStatus, studentsScheduleData, studentsScheduleError} = useSelector((state) => state.schedule);
@@ -22,7 +21,7 @@ export const StudentsSchedule = () => {
   useEffect(() => {
     dispatch(fetchStudentsSessionSchedule(selectedGroup));
   }, [selectedGroup]);
-console.log('st',scheduleType);
+
   return (
     <>
       {studentsScheduleStatus === 'loading' && <Spinner type="points" text="Идёт загрузка" />}

@@ -1,25 +1,32 @@
-import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   tableHeaderStudentSession,
   tableHeaderTeacherSession
 } from '../../../../assets/utils/arrays';
-import noLessons from '../../../../assets/images/no-lessons.svg';
+
 import {
-  generateClassName, matchDayOfWeek, matchDayOfWeek2, matchLessonTime, reverseDateForTable, shortenName,
+  generateClassName,
+  matchDayOfWeek,
+  matchDayOfWeek2,
+  matchLessonTime,
+  reverseDateForTable,
+  shortenName,
 } from '../../../../assets/utils/functions';
-import noLessonsSmall from '../../../../assets/images/no-lesson-small.svg';
-import {Link} from "react-router-dom";
-import {fetchStudentsSchedule, fetchTeacherSchedule} from "../../../../store/scheduleSlice";
+
 import {
   clearCorrespondenceGroup,
   clearGroup,
   clearTeacherFio,
   setGroup,
   setTeacherFio
-} from "../../../../store/selectsData";
-import {setScheduleType} from "../../../../store/weekDataSlice";
+} from '../../../../store/selectsData';
+import { setScheduleType } from '../../../../store/weekDataSlice';
+import { fetchStudentsSchedule, fetchTeacherSchedule } from '../../../../store/scheduleSlice';
 
+import noLessons from '../../../../assets/images/no-lessons.svg';
+import noLessonsSmall from '../../../../assets/images/no-lesson-small.svg';
 
 export const SessionTable = ({isStudentSession}) => {
   const teacherSessionData = useSelector((state) => state.schedule.teacherScheduleSessionData);
@@ -133,7 +140,6 @@ export const SessionTable = ({isStudentSession}) => {
                 </th>
               ))
             }
-
           </tr>
           </thead>
           <tbody>

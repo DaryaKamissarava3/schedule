@@ -1,23 +1,24 @@
-import React, {useEffect, useState} from 'react';
-import {lessonTimes, tableHeaderForCorrespondence} from "../../../../assets/utils/arrays";
-import noLessons from "../../../../assets/images/no-lessons.svg";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 import {
   generateClassName,
   matchDayOfWeek,
   matchDayOfWeek2,
-  matchLessonTime,
   matchLessonTypeAbbreviation,
   reverseDateForTable,
   shortenName
-} from "../../../../assets/utils/functions";
-import noLessonsSmall from "../../../../assets/images/no-lesson-small.svg";
-import {Link} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+} from '../../../../assets/utils/functions';
 
-import {fetchTeacherSchedule} from "../../../../store/scheduleSlice";
-import {clearCorrespondenceGroup, clearGroup, setTeacherFio} from "../../../../store/selectsData";
+import { clearCorrespondenceGroup, clearGroup, setTeacherFio } from '../../../../store/selectsData';
+import { fetchTeacherSchedule } from '../../../../store/scheduleSlice';
+import { lessonTimes, tableHeaderForCorrespondence } from '../../../../assets/utils/arrays';
 
-export const CorrespondenceTable = ({scheduleData}) => {
+import noLessons from '../../../../assets/images/no-lessons.svg';
+import noLessonsSmall from '../../../../assets/images/no-lesson-small.svg';
+
+export const CorrespondenceTable = ({ scheduleData }) => {
   const currentWeekDay = useSelector((state) => state.weekData.weekDay);
   const currentWeekNumber = useSelector((state) => state.weekData.weekNumber);
   const currentWeekName = useSelector((state) => state.weekData.weekName);

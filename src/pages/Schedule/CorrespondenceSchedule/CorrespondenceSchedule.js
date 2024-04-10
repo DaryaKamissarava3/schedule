@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { Spinner } from '../../../components/Spinner';
+import { CorrespondenceTable } from '../ScheduleComponents/CorrespondenceTable';
 import { ErrorMessage } from '../../../components/Error/ErrorMessage';
-import {CorrespondenceTable} from "../ScheduleComponents/CorrespondenceTable";
+import { Spinner } from '../../../components/Spinner';
 
 export const CorrespondenceSchedule = () => {
   const {studentsScheduleStatus, studentsScheduleData, studentsScheduleError} = useSelector((state) => state.schedule);

@@ -10,7 +10,7 @@ import {
   setWeekNumber
 } from '../../../../store/weekDataSlice';
 
-import {matchDayOfWeek2, matchScheduleType, matchSelectScheduleType} from '../../../../assets/utils/functions';
+import { matchDayOfWeek2, matchScheduleType, matchSelectScheduleType } from '../../../../assets/utils/functions';
 
 import './style.css';
 
@@ -38,7 +38,7 @@ const weekNumberOptions = [
   {value: 'все', label: 'все'}
 ];
 
-export const ScheduleSelectors = ({isCorrespondenceSchedule, forAllWeek}) => {
+export const ScheduleSelectors = ({ isCorrespondenceSchedule, forAllWeek }) => {
   const weekDay = useSelector((state) => state.weekData.weekDay);
   const currentWeekNumber = useSelector((state) => state.weekData.weekNumber);
   const currentWeekName = useSelector((state) => state.weekData.weekName);

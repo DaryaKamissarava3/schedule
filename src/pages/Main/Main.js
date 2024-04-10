@@ -1,9 +1,9 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import {CorrespondenceSchedule} from '../Schedule/CorrespondenceSchedule';
-import {StudentsSchedule} from '../Schedule/StudentsSchedule';
-import {TeacherSchedule} from '../Schedule/TeacherSchedule';
+import { CorrespondenceSchedule } from '../Schedule/CorrespondenceSchedule';
+import { StudentsSchedule } from '../Schedule/StudentsSchedule';
+import { TeacherSchedule } from '../Schedule/TeacherSchedule';
 
 import './style.css';
 
