@@ -195,6 +195,10 @@
     color: #505050;
   }
 
+  .card-text.date {
+    color: #d91919;
+  }
+
   .block_description_name {
     display: flex;
     flex-direction: row;

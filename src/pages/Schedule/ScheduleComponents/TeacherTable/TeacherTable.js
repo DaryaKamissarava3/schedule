@@ -14,14 +14,15 @@ import {
 } from '../../../../assets/utils/functions';
 
 import {
-  tableHeaderForTeacher,
+  tableHeaderForAllDays,
+  tableHeaderForTeacher, tableHeaderForTeacherWithDate,
   tableTeacherHeaderForAllDays
 } from '../../../../assets/utils/arrays';
 
 import noLessonsSmall from '../../../../assets/images/no-lesson-small.svg';
 import noLessons from '../../../../assets/images/no-lessons.svg';
 
-export const TeacherTable = ({ scheduleData }) => {
+export const TeacherTable = ({scheduleData}) => {
   const [filteredSchedule, setFilteredSchedule] = useState([]);
 
   const currentWeekDay = useSelector((state) => state.weekData.weekDay);
@@ -71,6 +72,9 @@ export const TeacherTable = ({ scheduleData }) => {
     dispatch(clearTeacherFio());
   }
 
+  const hasCorrespondenceData = filteredSchedule.some(item => item.correspondence === true);
+
+  console.log(hasCorrespondenceData);
   return (
     <>
       <div className="schedule-table-block">
@@ -78,16 +82,30 @@ export const TeacherTable = ({ scheduleData }) => {
           <thead className="table-header">
           <tr className="table-header_row">
             {currentWeekDay === 'ALL' ?
-              tableTeacherHeaderForAllDays.map((name, index) => (
-                <th className="table-header_item" key={index}>
-                  {name}
-                </th>
-              ))
-              : tableHeaderForTeacher.map((name, index) => (
-                <th className="table-header_item" key={index}>
-                  {name}
-                </th>
-              ))
+              hasCorrespondenceData ?
+                tableTeacherHeaderForAllDays.map((name, index) => (
+                  <th className="table-header_item" key={index}>
+                    {name}
+                  </th>
+                )) :
+                tableHeaderForAllDays.map((name, index) => (
+                  <th className="ааа table-header_item" key={index}>
+                    {name}
+                  </th>
+                ))
+              :
+              hasCorrespondenceData ?
+                tableHeaderForTeacherWithDate.map((name, index) => (
+                  <th className="table-header_item" key={index}>
+                    {name}
+                  </th>
+                ))
+                :
+                tableHeaderForTeacher.map((name, index) => (
+                  <th className="table-header_item" key={index}>
+                    {name}
+                  </th>
+                ))
             }
           </tr>
           </thead>
@@ -105,10 +123,13 @@ export const TeacherTable = ({ scheduleData }) => {
                 {
                   currentWeekDay === 'ALL' ? <td className="table-body_row_item">{tableItem.lessonDay}</td> : ''
                 }
-                {tableItem.correspondence ?
-                  <td className="table-body_row_item">{reverseDateForTable(tableItem.startDate)}</td>
-                  :
-                  <td className="table-body_row_item">Всегда</td>
+                {
+                  hasCorrespondenceData ?
+                    tableItem.correspondence ?
+                      <td className="table-body_row_item">{reverseDateForTable(tableItem.startDate)}</td>
+                      :
+                      <td className="table-body_row_item">Всегда</td>
+                    : ''
                 }
                 <td className="table-body_row">
                   {tableItem.lessonNumber}
@@ -165,6 +186,16 @@ export const TeacherTable = ({ scheduleData }) => {
                   </div>
                   <span className="card-divider"></span>
                   <div>
+                    {
+                      hasCorrespondenceData ?
+                        item.correspondence ?
+                          <div className="card-text date"><span
+                            className="card-text-key"><b>Дата:</b></span>{reverseDateForTable(item.startDate)}</div>
+                          :
+                          <div className="card-text date"><span className="card-text-key"><b>Дата:</b></span>Всегда
+                          </div>
+                        : ''
+                    }
                     {
                       currentWeekDay === 'ALL' ?
                         <div className="card-text"><span className="card-text-key"><b>День:</b></span>{item.lessonDay}
