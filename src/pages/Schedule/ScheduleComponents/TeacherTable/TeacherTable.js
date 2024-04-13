@@ -74,7 +74,6 @@ export const TeacherTable = ({scheduleData}) => {
 
   const hasCorrespondenceData = filteredSchedule.some(item => item.correspondence === true);
 
-  console.log(hasCorrespondenceData);
   return (
     <>
       <div className="schedule-table-block">
