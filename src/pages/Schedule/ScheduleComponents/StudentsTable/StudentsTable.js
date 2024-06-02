@@ -208,7 +208,6 @@ export const StudentsTable = ({ scheduleData, isCorrespondenceSchedule }) => {
                           <span
                             className="card-text-key"><b>День:</b></span>{matchDayOfWeek2(matchDayOfWeek(item.lessonDay))}
                           </div> :
-
                           ''
                     }
                     <div className="card-text"><span className="card-text-key"><b>Пара:</b></span>{item.lessonNumber}

@@ -5,7 +5,7 @@ export const fetchStudentsSchedule = createAsyncThunk(
   `schedule/fetchStudentsSchedule`,
   async (group, {rejectWithValue}) => {
     try {
-      const response = await axios.get(`https://student.vstu.by/api/schedule/group?name=${group}`);
+      const response = await axios.get(`https://schedule.vstu.by/api/schedule/group?name=${group}`);
 
       if (response.status !== 200) {
         throw new Error('Server error!')
@@ -22,7 +22,7 @@ export const fetchStudentsSessionSchedule = createAsyncThunk(
   `schedule/fetchStudentsSessionSchedule`,
   async (group, {rejectWithValue}) => {
     try {
-      const response = await axios.get(`https://student.vstu.by/api/schedule/group/exam?name=${group}`);
+      const response = await axios.get(`https://schedule.vstu.by/api/schedule/group/exam?name=${group}`);
 
       if (response.status !== 200) {
         throw new Error('Server error!')
@@ -39,7 +39,7 @@ export const fetchTeacherSchedule = createAsyncThunk(
   `schedule/fetchTeacherSchedule`,
   async (teacherFio, {rejectWithValue}) => {
     try {
-      const response = await axios.get(`https://student.vstu.by/api/schedule/teacherFIO?fio=${teacherFio}`);
+      const response = await axios.get(`https://schedule.vstu.by/api/schedule/teacherFIO?fio=${teacherFio}`);
 
       if (response.status !== 200) {
         throw new Error('Server error!')
@@ -56,7 +56,8 @@ export const fetchTeacherSessionSchedule = createAsyncThunk(
   `schedule/fetchTeacherSessionSchedule`,
   async (teacherFio, {rejectWithValue}) => {
     try {
-      const response = await axios.get(`https://student.vstu.by/api/schedule/teacherFIO/exam?fio=${teacherFio}`);
+      console.log(teacherFio)
+      const response = await axios.get(`https://schedule.vstu.by/api/schedule/teacherFIO/exam?fio=${teacherFio}`);
 
       if (response.status !== 200) {
         throw new Error('Server error!')

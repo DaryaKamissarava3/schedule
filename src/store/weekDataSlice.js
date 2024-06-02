@@ -5,7 +5,7 @@ export const fetchWeekDay = createAsyncThunk(
   'weekData/fetchWeekDay',
   async (token, {rejectWithValue}) => {
     try {
-      const response = await axios.get('https://student.vstu.by/api/schedule/day');
+      const response = await axios.get('https://schedule.vstu.by/api/schedule/day');
 
       if (response.status !== 200) {
         throw new Error('Server error!');
@@ -21,7 +21,7 @@ export const fetchWeekNumber = createAsyncThunk(
   'weekData/fetchWeekNumber',
   async (_, {rejectWithValue}) => {
     try {
-      const response = await axios.get('https://student.vstu.by/api/schedule/numberOfWeek');
+      const response = await axios.get('https://schedule.vstu.by/api/schedule/numberOfWeek');
 
       if (response.status !== 200) {
         throw new Error('Server error!');
@@ -38,7 +38,7 @@ export const fetchWeekName = createAsyncThunk(
   'weekData/fetchWeekName',
   async (_, {rejectWithValue}) => {
     try {
-      const response = await axios.get('https://student.vstu.by/api/schedule/nameOfWeek');
+      const response = await axios.get('https://schedule.vstu.by/api/schedule/nameOfWeek');
 
       if (response.status !== 200) {
         throw new Error('Server error!');
