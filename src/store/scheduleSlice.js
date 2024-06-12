@@ -56,7 +56,6 @@ export const fetchTeacherSessionSchedule = createAsyncThunk(
   `schedule/fetchTeacherSessionSchedule`,
   async (teacherFio, {rejectWithValue}) => {
     try {
-      console.log(teacherFio)
       const response = await axios.get(`https://schedule.vstu.by/api/schedule/teacherFIO/exam?fio=${teacherFio}`);
 
       if (response.status !== 200) {

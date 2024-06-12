@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import {
-  tableHeaderStudentSession,
-  tableHeaderTeacherSession
-} from '../../../../assets/utils/arrays';
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {Link} from 'react-router-dom';
+import {tableHeaderStudentSession, tableHeaderTeacherSession} from '../../../../assets/utils/arrays';
 
 import {
   generateClassName,
@@ -22,8 +19,8 @@ import {
   setGroup,
   setTeacherFio
 } from '../../../../store/selectsData';
-import { setScheduleType } from '../../../../store/weekDataSlice';
-import { fetchStudentsSchedule, fetchTeacherSchedule } from '../../../../store/scheduleSlice';
+import {setScheduleType} from '../../../../store/weekDataSlice';
+import {fetchStudentsSchedule, fetchTeacherSchedule} from '../../../../store/scheduleSlice';
 
 import noLessons from '../../../../assets/images/no-lessons.svg';
 import noLessonsSmall from '../../../../assets/images/no-lesson-small.svg';
@@ -33,6 +30,7 @@ export const SessionTable = ({isStudentSession}) => {
   const studentSessionData = useSelector((state) => state.schedule.studentsScheduleSessionData);
 
   const [filteredSchedule, setFilteredSchedule] = useState([]);
+  console.log('fshcedule',filteredSchedule);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -41,14 +39,13 @@ export const SessionTable = ({isStudentSession}) => {
       setFilteredSchedule(data);
     } else {
       const data = filterSchedule(teacherSessionData);
+      console.log(data);
       setFilteredSchedule(data);
     }
   }, [studentSessionData, teacherSessionData]);
 
   const filterSchedule = (array) => {
-    const sortedArray = [...array].sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
-
-    return sortedArray;
+    return [...array].sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
   };
 
   const generateTeacherLinks = (teacherNames, rowDay) => {
@@ -171,7 +168,7 @@ export const SessionTable = ({isStudentSession}) => {
                 </tr>
               ))
               :
-              teacherSessionData.map((tableItem) => (
+              filteredSchedule.map((tableItem) => (
                 <tr key={tableItem.id} className={`table-body_row ${generateClassName(tableItem.typeClassName)}`}>
                   <td className="table-body_row_item">
                     {reverseDateForTable(tableItem.startDate)}
